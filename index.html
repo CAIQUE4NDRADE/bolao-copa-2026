@@ -1117,8 +1117,15 @@
         throw new Error(err);
       }
 
-      document.getElementById('sucessoMsg').textContent =
-        `${nome}, seus ${preenchidos} palpites foram registrados! Boa sorte no Bolão de Paulínia! 🇧🇷⚽🔥`;
+      document.getElementById('sucessoMsg').innerHTML =
+        `${nome}, seus ${preenchidos} palpites foram registrados!<br><br>` +
+        `🇧🇷⚽🔥 Boa sorte no Bolão de Paulínia!<br><br>` +
+        `<div style="background:rgba(255,223,0,0.12);border:1px solid rgba(255,223,0,0.4);border-radius:12px;padding:16px;margin-top:8px;">` +
+        `<div style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:2px;color:#ffdf00;margin-bottom:8px;">💰 AGORA PAGUE SUA COTA</div>` +
+        `<div style="font-size:0.85rem;color:#9aa0b4;margin-bottom:6px;">Chave PIX · CPF</div>` +
+        `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#ffffff;letter-spacing:3px;">418.492.188-46</div>` +
+        `<div style="font-size:0.78rem;color:#9aa0b4;margin-top:6px;">Valor: R$ 20,00 · Identificar com seu nome</div>` +
+        `</div>`;
       document.getElementById('sucessoOverlay').style.display = 'flex';
 
     } catch(e) {
