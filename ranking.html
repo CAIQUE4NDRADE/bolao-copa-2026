@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="60">
+<title>🏆 Ranking – Bolão Copa 2026 – Paulínia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:#009c3b; --amarelo:#ffdf00; --azul:#002776;
+  --escuro:#1a1a2e; --meio:#16213e; --card:#0f3460;
+  --texto:#e8e8e8; --fraco:#9aa0b4; --borda:rgba(255,255,255,0.08);
+  --ouro:#ffd700; --prata:#c0c0c0; --bronze:#cd7f32;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--escuro);
+  color:var(--texto);
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 10%,rgba(0,156,59,0.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 90%,rgba(0,39,118,0.2) 0%,transparent 50%);
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--azul) 0%,#001a5c 50%,var(--verde) 100%);
+  padding:32px 20px 24px;
+  text-align:center;
+  border-bottom:3px solid var(--amarelo);
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,223,0,0.03) 20px,rgba(255,223,0,0.03) 40px);
+}
+.header-flags{font-size:2rem;letter-spacing:4px;margin-bottom:8px}
+header h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,6vw,3.5rem);
+  color:var(--amarelo);letter-spacing:3px;
+  text-shadow:0 2px 20px rgba(0,0,0,0.5);
+  line-height:1;
+}
+header h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(0.9rem,2.5vw,1.2rem);
+  color:rgba(255,255,255,0.8);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-top:6px;font-weight:400;
+}
+.live-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:14px;
+  background:rgba(0,156,59,0.2);
+  border:1px solid rgba(0,156,59,0.5);
+  color:#4caf50;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.85rem;letter-spacing:2px;
+  padding:5px 16px;border-radius:20px;
+}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#4caf50;
+  animation:pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+/* STATS BAR */
+.stats-bar{
+  max-width:800px;margin:20px auto 0;padding:0 16px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+}
+.stat-card{
+  background:var(--card);border:1px solid var(--borda);
+  border-radius:12px;padding:14px;text-align:center;
+}
+.stat-card .valor{
+  font-family:'Bebas Neue',sans-serif;font-size:1.8rem;
+  color:var(--amarelo);
+}
+.stat-card .label{font-size:0.75rem;color:var(--fraco);text-transform:uppercase;letter-spacing:1px}
+
+/* PODIO */
+.podio{
+  max-width:800px;margin:20px auto 0;padding:0 16px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+  align-items:end;
+}
+.podio-card{
+  background:var(--card);border:1px solid var(--borda);
+  border-radius:16px;padding:20px 12px 16px;
+  text-align:center;position:relative;overflow:hidden;
+  transition:transform 0.2s;
+}
+.podio-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+}
+.podio-1::before{background:var(--ouro)}
+.podio-2::before{background:var(--prata)}
+.podio-3::before{background:var(--bronze)}
+.podio-1{order:2;transform:scale(1.05);border-color:rgba(255,215,0,0.3);}
+.podio-2{order:1}
+.podio-3{order:3}
+.podio-medal{font-size:2.5rem;margin-bottom:6px}
+.podio-nome{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:1rem;line-height:1.2;word-break:break-word;
+}
+.podio-pts{
+  font-family:'Bebas Neue',sans-serif;font-size:2rem;
+  margin-top:4px;
+}
+.podio-1 .podio-pts{color:var(--ouro)}
+.podio-2 .podio-pts{color:var(--prata)}
+.podio-3 .podio-pts{color:var(--bronze)}
+.podio-sub{font-size:0.7rem;color:var(--fraco)}
+.podio-premio{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.8rem;font-weight:600;
+  margin-top:6px;padding:3px 10px;border-radius:10px;
+}
+.podio-1 .podio-premio{background:rgba(255,215,0,0.15);color:var(--ouro)}
+.podio-2 .podio-premio{background:rgba(192,192,192,0.15);color:var(--prata)}
+.podio-3 .podio-premio{background:rgba(205,127,50,0.15);color:var(--bronze)}
+
+/* TABELA COMPLETA */
+.tabela-wrapper{max-width:800px;margin:20px auto 60px;padding:0 16px}
+.tabela-titulo{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--fraco);margin-bottom:8px;padding-left:4px;
+}
+.ranking-row{
+  display:grid;
+  grid-template-columns:48px 1fr 70px 60px;
+  align-items:center;gap:10px;
+  background:var(--card);border:1px solid var(--borda);
+  border-radius:12px;padding:12px 16px;
+  margin-bottom:6px;
+  transition:border-color 0.2s;
+}
+.ranking-row:hover{border-color:rgba(255,223,0,0.2)}
+.ranking-row.gold{border-color:rgba(255,215,0,0.35);background:rgba(255,215,0,0.06)}
+.ranking-row.silver{border-color:rgba(192,192,192,0.25);background:rgba(192,192,192,0.04)}
+.ranking-row.bronze{border-color:rgba(205,127,50,0.25);background:rgba(205,127,50,0.04)}
+.r-pos{
+  font-family:'Bebas Neue',sans-serif;font-size:1.4rem;
+  text-align:center;color:var(--fraco);
+}
+.r-pos.medal{font-size:1.6rem}
+.r-info .r-nome{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;
+}
+.r-info .r-sub{font-size:0.72rem;color:var(--fraco);margin-top:1px}
+.r-pts{
+  font-family:'Bebas Neue',sans-serif;font-size:1.8rem;
+  color:var(--amarelo);text-align:center;
+}
+.r-feitos{text-align:center}
+.r-barra-wrap{
+  grid-column:1/-1;
+  height:3px;background:rgba(255,255,255,0.06);
+  border-radius:2px;margin-top:4px;
+}
+.r-barra{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--verde),var(--amarelo));
+  transition:width 1s ease;
+}
+
+/* ARRECADADO */
+.arrecadado-box{
+  max-width:800px;margin:0 auto 10px;padding:0 16px;
+}
+.arrecadado-inner{
+  background:rgba(0,156,59,0.1);border:1px solid rgba(0,156,59,0.3);
+  border-radius:12px;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.arrecadado-inner span:first-child{color:var(--fraco);font-size:0.82rem}
+.arrecadado-inner span:last-child{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--verde);
+}
+
+/* ATUALIZA */
+.update-info{
+  text-align:center;font-size:0.72rem;color:var(--fraco);
+  margin-top:8px;padding-bottom:30px;
+}
+
+/* LOADING */
+.loading{text-align:center;padding:60px 20px;color:var(--fraco)}
+.spinner{
+  display:inline-block;width:36px;height:36px;
+  border:3px solid var(--borda);border-top-color:var(--verde);
+  border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:10px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{
+  text-align:center;padding:50px 20px;color:var(--fraco);
+  font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:1px;
+}
+
+@media(max-width:500px){
+  .podio{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .podio-card{padding:14px 8px 12px}
+  .podio-medal{font-size:2rem}
+  .podio-nome{font-size:0.85rem}
+  .podio-pts{font-size:1.6rem}
+  .ranking-row{grid-template-columns:40px 1fr 60px 50px;gap:6px;padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-flags">🇧🇷 🏆 ⚽</div>
+  <h1>Bolão Copa 2026</h1>
+  <h2>Paulínia · Classificação Geral</h2>
+  <div class="live-badge"><div class="live-dot"></div> AO VIVO · Atualiza a cada 60s</div>
+</header>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-card"><div class="valor" id="statParticipantes">–</div><div class="label">Participantes</div></div>
+  <div class="stat-card"><div class="valor" id="statJogos">–</div><div class="label">Jogos c/ resultado</div></div>
+  <div class="stat-card"><div class="valor" id="statArrecadado">–</div><div class="label">Arrecadado</div></div>
+</div>
+
+<div id="conteudo">
+  <div class="loading"><div class="spinner"></div><br>Carregando classificação...</div>
+</div>
+
+<div class="update-info" id="updateInfo"></div>
+
+<script>
+const SUPABASE_URL = 'https://sbpeokzwbnepbdjbivxs.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNicGVva3p3Ym5lcGJkamJpdnhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2Njk5MTMsImV4cCI6MjA5NjI0NTkxM30.9vughnzHa_CYiHEdbuQTLsu9-rJjJ4W-u_HenvBfBH0';
+const TOTAL_JOGOS  = 72;
+
+async function sbGet(tabela, params='') {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${tabela}?${params}`, {
+    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+  });
+  return r.json();
+}
+
+async function carregar() {
+  try {
+    const [palpites, resultados] = await Promise.all([
+      sbGet('palpites', 'order=created_at.asc'),
+      sbGet('resultados', 'order=jogo_num.asc')
+    ]);
+
+    const resMap = {};
+    if (Array.isArray(resultados)) {
+      resultados.forEach(r => { resMap[r.jogo_num] = { g1: r.gol1, g2: r.gol2 }; });
+    }
+    const jogosComRes = Object.keys(resMap).length;
+
+    if (!Array.isArray(palpites) || palpites.length === 0) {
+      document.getElementById('conteudo').innerHTML =
+        '<div class="empty">⏳ Nenhum palpite registrado ainda.<br>Aguarde os participantes enviarem seus palpites.</div>';
+      document.getElementById('statParticipantes').textContent = '0';
+      document.getElementById('statJogos').textContent = jogosComRes + '/72';
+      document.getElementById('statArrecadado').textContent = 'R$ 0';
+      atualizarHora();
+      return;
+    }
+
+    // calcula pontos
+    const ranking = palpites.map(p => {
+      let pts = 0, feitos = 0, acertos3 = 0, acertos1 = 0;
+      for (let num = 1; num <= TOTAL_JOGOS; num++) {
+        const g1 = p[`j${num}_casa`];
+        const g2 = p[`j${num}_fora`];
+        if (g1 === null || g1 === undefined) continue;
+        feitos++;
+        const r = resMap[num];
+        if (!r) continue;
+        if (g1 === r.g1 && g2 === r.g2) { pts += 3; acertos3++; continue; }
+        const rp = g1>g2?1:g1<g2?-1:0;
+        const rr = r.g1>r.g2?1:r.g1<r.g2?-1:0;
+        if (rp === rr) { pts += 1; acertos1++; }
+      }
+      return { nome: p.nome, pts, feitos, acertos3, acertos1 };
+    }).sort((a,b) => b.pts - a.pts || b.acertos3 - a.acertos3);
+
+    const maxPts = jogosComRes > 0 ? jogosComRes * 3 : 1;
+    const arrecadado = (palpites.length * 20).toLocaleString('pt-BR', {minimumFractionDigits:2});
+
+    // stats
+    document.getElementById('statParticipantes').textContent = palpites.length;
+    document.getElementById('statJogos').textContent = jogosComRes + '/72';
+    document.getElementById('statArrecadado').textContent = 'R$' + arrecadado;
+
+    // prêmios
+    const totalArrecadado = palpites.length * 20;
+    const premio1 = (totalArrecadado * 0.50).toLocaleString('pt-BR', {minimumFractionDigits:2});
+    const premio2 = (totalArrecadado * 0.35).toLocaleString('pt-BR', {minimumFractionDigits:2});
+    const premio3 = (totalArrecadado * 0.15).toLocaleString('pt-BR', {minimumFractionDigits:2});
+
+    const medalhas = ['🥇','🥈','🥉'];
+    const medalCls = ['gold','silver','bronze'];
+    const podioCls = ['podio-1','podio-2','podio-3'];
+    const premios  = [premio1, premio2, premio3];
+
+    // pódio top 3
+    let podioHTML = '';
+    const top3 = ranking.slice(0,3);
+    // ordem visual: 2º - 1º - 3º
+    const ordemVisual = top3.length >= 3 ? [top3[1], top3[0], top3[2]] :
+                        top3.length === 2 ? [top3[1], top3[0]] : [top3[0]];
+    const ordemClasses = top3.length >= 3 ? ['podio-2','podio-1','podio-3'] :
+                         top3.length === 2 ? ['podio-2','podio-1'] : ['podio-1'];
+    const ordemMedals  = top3.length >= 3 ? ['🥈','🥇','🥉'] :
+                         top3.length === 2 ? ['🥈','🥇'] : ['🥇'];
+    const ordemPremios = top3.length >= 3 ? [premio2, premio1, premio3] :
+                         top3.length === 2 ? [premio2, premio1] : [premio1];
+    const ordemPts     = top3.length >= 3 ? ['podio-2','podio-1','podio-3'] :
+                         top3.length === 2 ? ['podio-2','podio-1'] : ['podio-1'];
+
+    ordemVisual.forEach((p,i) => {
+      if (!p) return;
+      podioHTML += `
+      <div class="podio-card ${ordemClasses[i]}">
+        <div class="podio-medal">${ordemMedals[i]}</div>
+        <div class="podio-nome">${p.nome}</div>
+        <div class="podio-pts">${p.pts}</div>
+        <div class="podio-sub">${p.acertos3} exatos · ${p.acertos1} resultados</div>
+        <div class="podio-premio">R$ ${ordemPremios[i]}</div>
+      </div>`;
+    });
+
+    // tabela completa
+    let tabelaHTML = '';
+    ranking.forEach((p,i) => {
+      const pct = maxPts > 0 ? Math.min(100, (p.pts / maxPts * 100)) : 0;
+      const cls = i===0?'gold':i===1?'silver':i===2?'bronze':'';
+      const pos = i < 3 ? `<span class="medal">${medalhas[i]}</span>` : (i+1)+'º';
+      tabelaHTML += `
+      <div class="ranking-row ${cls}">
+        <div class="r-pos ${i<3?'medal':''}">${pos}</div>
+        <div class="r-info">
+          <div class="r-nome">${p.nome}</div>
+          <div class="r-sub">${p.acertos3} placar exato · ${p.acertos1} resultado certo · ${p.feitos} palpites</div>
+        </div>
+        <div class="r-pts">${p.pts}<span style="font-size:.6rem;color:var(--fraco);display:block;font-family:'Barlow',sans-serif">pts</span></div>
+        <div class="r-feitos" style="font-size:.75rem;color:var(--fraco)">${p.feitos}<span style="display:block">palpites</span></div>
+        <div class="r-barra-wrap"><div class="r-barra" style="width:${pct}%"></div></div>
+      </div>`;
+    });
+
+    document.getElementById('conteudo').innerHTML = `
+      <div class="podio" style="margin-top:20px">${podioHTML}</div>
+      <div class="arrecadado-box" style="margin-top:16px">
+        <div class="arrecadado-inner">
+          <span>💰 Total arrecadado (${palpites.length} cotas × R$ 20,00)</span>
+          <span>R$ ${arrecadado}</span>
+        </div>
+      </div>
+      <div class="tabela-wrapper">
+        <div class="tabela-titulo">Classificação completa</div>
+        ${tabelaHTML}
+      </div>`;
+
+    atualizarHora();
+
+  } catch(e) {
+    document.getElementById('conteudo').innerHTML =
+      '<div class="empty">❌ Erro ao carregar. Tente recarregar a página.</div>';
+  }
+}
+
+function atualizarHora() {
+  const agora = new Date().toLocaleString('pt-BR');
+  document.getElementById('updateInfo').textContent = 'Última atualização: ' + agora + ' · Página recarrega automaticamente a cada 60s';
+}
+
+carregar();
+setInterval(carregar, 60000);
+</script>
+</body>
+</html>
