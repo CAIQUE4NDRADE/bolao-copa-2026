@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 Admin – Bolão Copa 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:#009c3b; --amarelo:#ffdf00; --azul:#002776;
+  --escuro:#1a1a2e; --card:#0f3460; --texto:#e8e8e8;
+  --fraco:#9aa0b4; --borda:rgba(255,255,255,0.08);
+  --vermelho:#e53935;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Barlow',sans-serif;background:var(--escuro);color:var(--texto);min-height:100vh}
+header{background:linear-gradient(135deg,var(--azul),#001a5c,var(--verde));padding:28px 20px 20px;text-align:center;border-bottom:3px solid var(--amarelo)}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,5vw,2.8rem);color:var(--amarelo);letter-spacing:3px}
+header p{color:rgba(255,255,255,0.7);font-size:.85rem;margin-top:4px}
+.tabs{display:flex;gap:0;max-width:1100px;margin:24px auto 0;padding:0 16px}
+.tab{padding:10px 24px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-bottom:none;border-radius:10px 10px 0 0;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;transition:all .2s}
+.tab.active{background:var(--card);color:var(--amarelo);font-weight:700}
+.tab-content{display:none;max-width:1100px;margin:0 auto;padding:0 16px 60px;background:var(--card);border-radius:0 10px 10px 10px;border:1px solid var(--borda)}
+.tab-content.active{display:block}
+
+/* RESULTADOS */
+.resultados-grid{display:grid;gap:6px;padding:20px 0}
+.res-rodada{background:var(--verde);padding:8px 14px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:2px;margin-top:12px}
+.res-rodada.r2{background:var(--amarelo);color:#333}
+.res-rodada.r3{background:var(--vermelho)}
+.res-jogo{display:grid;grid-template-columns:40px 80px 60px 1fr auto 1fr;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid var(--borda);border-radius:8px;padding:8px 12px}
+.res-num{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--fraco);text-align:center}
+.res-data{font-size:.75rem;color:var(--fraco)}
+.res-hora{font-size:.75rem;color:var(--fraco)}
+.res-time{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.9rem}
+.res-time.fora{text-align:right}
+.res-placar{display:flex;align-items:center;gap:6px;justify-content:center}
+.res-placar input{width:48px;height:44px;text-align:center;font-size:1.3rem;font-weight:700;font-family:'Bebas Neue',sans-serif;background:rgba(255,255,255,0.08);border:2px solid rgba(229,57,53,0.4);border-radius:8px;color:var(--vermelho);outline:none}
+.res-placar input:focus{border-color:var(--vermelho);background:rgba(229,57,53,0.1)}
+.res-placar input.salvo{border-color:var(--verde);color:var(--verde)}
+.res-sep{font-family:'Bebas Neue',sans-serif;color:var(--fraco)}
+.btn-salvar-res{background:var(--verde);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;cursor:pointer;margin:16px 0;transition:all .2s}
+.btn-salvar-res:hover{background:#007a2f}
+
+/* PALPITES */
+.palpites-header{display:flex;align-items:center;gap:12px;padding:20px 0 12px;flex-wrap:wrap}
+.palpites-header h2{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--amarelo);letter-spacing:2px}
+.badge-total{background:rgba(255,223,0,0.15);border:1px solid var(--amarelo);color:var(--amarelo);padding:4px 14px;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:.85rem}
+.btn-refresh{background:transparent;border:1px solid var(--borda);color:var(--fraco);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;transition:all .2s}
+.btn-refresh:hover{border-color:var(--amarelo);color:var(--amarelo)}
+.participante-card{background:rgba(255,255,255,0.04);border:1px solid var(--borda);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.participante-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:background .2s}
+.participante-header:hover{background:rgba(255,255,255,0.04)}
+.p-info{display:flex;align-items:center;gap:12px}
+.p-nome{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem}
+.p-wpp{font-size:.8rem;color:var(--fraco)}
+.p-pts{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--amarelo)}
+.p-pts span{font-size:.7rem;color:var(--fraco);font-family:'Barlow',sans-serif;font-weight:400}
+.p-palpites{display:none;padding:0 18px 14px;border-top:1px solid var(--borda)}
+.p-palpites.open{display:block}
+.palpites-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin-top:10px}
+.palpite-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);border-radius:6px;padding:6px 10px;font-size:.82rem}
+.palpite-item .p-jogo{color:var(--fraco);font-size:.72rem;min-width:50px}
+.palpite-item .p-times{flex:1;text-align:center;font-family:'Barlow Condensed',sans-serif}
+.palpite-item .p-score{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--amarelo);min-width:40px;text-align:right}
+.palpite-item.acerto3{border-left:3px solid var(--verde)}
+.palpite-item.acerto1{border-left:3px solid var(--amarelo)}
+.palpite-item.erro{border-left:3px solid var(--vermelho)}
+.palpite-item.sem-resultado{border-left:3px solid var(--borda)}
+
+/* CLASSIFICAÇÃO */
+.ranking-header{padding:20px 0 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ranking-header h2{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--amarelo);letter-spacing:2px}
+.btn-calcular{background:var(--verde);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;cursor:pointer;transition:all .2s}
+.btn-calcular:hover{background:#007a2f;transform:translateY(-1px)}
+.ranking-table{width:100%;border-collapse:collapse;margin-top:8px}
+.ranking-table th{background:rgba(255,255,255,0.06);padding:10px 14px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;letter-spacing:1px;color:var(--fraco);border-bottom:1px solid var(--borda)}
+.ranking-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.ranking-table tr:hover td{background:rgba(255,255,255,0.02)}
+.rank-pos{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;text-align:center}
+.rank-nome{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem}
+.rank-pts{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--amarelo);text-align:center}
+.rank-feitos{text-align:center;color:var(--fraco);font-size:.85rem}
+.tr-gold td{background:rgba(255,215,0,0.07)}
+.tr-silver td{background:rgba(192,192,192,0.05)}
+.tr-bronze td{background:rgba(205,127,50,0.05)}
+.arrecadado{background:rgba(0,156,59,0.1);border:1px solid rgba(0,156,59,0.3);border-radius:10px;padding:14px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.arrecadado span:first-child{color:var(--fraco);font-size:.85rem}
+.arrecadado span:last-child{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--verde)}
+
+/* loading */
+.loading{text-align:center;padding:40px;color:var(--fraco)}
+.spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--borda);border-top-color:var(--verde);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:600px){
+  .res-jogo{grid-template-columns:30px 70px 1fr auto 1fr;gap:4px}
+  .res-data,.res-hora{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 Admin – Bolão Copa 2026</h1>
+  <p>Painel do organizador · Paulínia</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="abrirTab('resultados',this)">🎯 Resultados</div>
+  <div class="tab" onclick="abrirTab('palpites',this)">📋 Palpites</div>
+  <div class="tab" onclick="abrirTab('ranking',this)">🏅 Ranking</div>
+</div>
+
+<!-- ── TAB RESULTADOS ── -->
+<div class="tab-content active" id="tab-resultados">
+  <div class="resultados-grid" id="resultadosGrid">
+    <div class="loading"><div class="spinner"></div><br>Carregando...</div>
+  </div>
+  <button class="btn-salvar-res" onclick="salvarResultados()">💾 Salvar Resultados</button>
+</div>
+
+<!-- ── TAB PALPITES ── -->
+<div class="tab-content" id="tab-palpites">
+  <div class="palpites-header">
+    <h2>Palpites Recebidos</h2>
+    <span class="badge-total" id="badgeTotal">–</span>
+    <button class="btn-refresh" onclick="carregarPalpites()">↺ Atualizar</button>
+  </div>
+  <div id="palpitesContainer"><div class="loading"><div class="spinner"></div><br>Carregando...</div></div>
+</div>
+
+<!-- ── TAB RANKING ── -->
+<div class="tab-content" id="tab-ranking">
+  <div class="ranking-header">
+    <h2>Classificação Geral</h2>
+    <button class="btn-calcular" onclick="calcularRanking()">⚽ Calcular Pontos</button>
+  </div>
+  <div id="rankingContainer"><div class="loading"><div class="spinner"></div><br>Clique em "Calcular Pontos"</div></div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://sbpeokzwbnepbdjbivxs.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNicGVva3p3Ym5lcGJkamJpdnhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2Njk5MTMsImV4cCI6MjA5NjI0NTkxM30.9vughnzHa_CYiHEdbuQTLsu9-rJjJ4W-u_HenvBfBH0';
+
+const JOGOS = [[1, '11/06', '16h', 'México', 'África do Sul', 'A'], [2, '11/06', '23h', 'Coreia do Sul', 'Europa D*', 'A'], [3, '12/06', '16h', 'Canadá', 'Europa A*', 'B'], [4, '12/06', '22h', 'Estados Unidos', 'Paraguai', 'D'], [5, '13/06', '01h', 'Austrália', 'Europa C*', 'D'], [6, '13/06', '16h', 'Catar', 'Suíça', 'B'], [7, '13/06', '19h', 'Brasil', 'Marrocos', 'C'], [8, '13/06', '22h', 'Haiti', 'Escócia', 'C'], [9, '14/06', '14h', 'Alemanha', 'Curaçao', 'E'], [10, '14/06', '17h', 'Holanda', 'Japão', 'F'], [11, '14/06', '20h', 'Costa do Marfim', 'Equador', 'E'], [12, '14/06', '23h', 'Europa B*', 'Tunísia', 'F'], [13, '15/06', '13h', 'Espanha', 'Cabo Verde', 'H'], [14, '15/06', '16h', 'Bélgica', 'Egito', 'G'], [15, '15/06', '19h', 'Arábia Saudita', 'Uruguai', 'H'], [16, '15/06', '22h', 'Irã', 'Nova Zelândia', 'G'], [17, '16/06', '14h', 'Argentina', 'Argélia', 'J'], [18, '16/06', '16h', 'França', 'Senegal', 'I'], [19, '16/06', '19h', 'Repescagem 2*', 'Noruega', 'I'], [20, '17/06', '01h', 'Áustria', 'Jordânia', 'J'], [21, '17/06', '14h', 'Portugal', 'Repescagem 1*', 'K'], [22, '17/06', '17h', 'Inglaterra', 'Croácia', 'L'], [23, '17/06', '20h', 'Gana', 'Panamá', 'L'], [24, '17/06', '23h', 'Uzbequistão', 'Colômbia', 'K'], [25, '18/06', '13h', 'Europa D*', 'África do Sul', 'A'], [26, '18/06', '16h', 'Suíça', 'Europa A*', 'B'], [27, '18/06', '19h', 'Canadá', 'Catar', 'B'], [28, '18/06', '22h', 'México', 'Coreia do Sul', 'A'], [29, '19/06', '01h', 'Europa C*', 'Paraguai', 'D'], [30, '19/06', '16h', 'Estados Unidos', 'Austrália', 'D'], [31, '19/06', '19h', 'Escócia', 'Marrocos', 'C'], [32, '19/06', '22h', 'Brasil', 'Haiti', 'C'], [33, '20/06', '14h', 'Holanda', 'Europa B*', 'F'], [34, '20/06', '17h', 'Alemanha', 'Costa do Marfim', 'E'], [35, '20/06', '21h', 'Equador', 'Curaçao', 'E'], [36, '21/06', '01h', 'Tunísia', 'Japão', 'F'], [37, '21/06', '13h', 'Espanha', 'Arábia Saudita', 'H'], [38, '21/06', '16h', 'Bélgica', 'Irã', 'G'], [39, '21/06', '19h', 'Uruguai', 'Cabo Verde', 'H'], [40, '21/06', '22h', 'Nova Zelândia', 'Egito', 'G'], [41, '22/06', '14h', 'Argentina', 'Áustria', 'J'], [42, '22/06', '18h', 'França', 'Repescagem 2*', 'I'], [43, '22/06', '21h', 'Noruega', 'Senegal', 'I'], [44, '23/06', '00h', 'Jordânia', 'Argélia', 'J'], [45, '23/06', '14h', 'Portugal', 'Uzbequistão', 'K'], [46, '23/06', '17h', 'Inglaterra', 'Gana', 'L'], [47, '23/06', '20h', 'Panamá', 'Croácia', 'L'], [48, '23/06', '23h', 'Colômbia', 'Repescagem 1*', 'K'], [49, '24/06', '16h', 'Suíça', 'Canadá', 'B'], [50, '24/06', '16h', 'Europa A*', 'Catar', 'B'], [51, '24/06', '19h', 'Escócia', 'Brasil', 'C'], [52, '24/06', '19h', 'Marrocos', 'Haiti', 'C'], [53, '24/06', '22h', 'Europa D*', 'México', 'A'], [54, '24/06', '22h', 'África do Sul', 'Coreia do Sul', 'A'], [55, '25/06', '17h', 'Equador', 'Alemanha', 'E'], [56, '25/06', '17h', 'Curaçao', 'Costa do Marfim', 'E'], [57, '25/06', '20h', 'Japão', 'Europa B*', 'F'], [58, '25/06', '20h', 'Tunísia', 'Holanda', 'F'], [59, '25/06', '23h', 'Europa C*', 'Estados Unidos', 'D'], [60, '25/06', '23h', 'Paraguai', 'Austrália', 'D'], [61, '26/06', '16h', 'Noruega', 'França', 'I'], [62, '26/06', '16h', 'Senegal', 'Repescagem 2*', 'I'], [63, '26/06', '21h', 'Cabo Verde', 'Arábia Saudita', 'H'], [64, '26/06', '21h', 'Uruguai', 'Espanha', 'H'], [65, '27/06', '00h', 'Egito', 'Irã', 'G'], [66, '27/06', '00h', 'Nova Zelândia', 'Bélgica', 'G'], [67, '27/06', '18h', 'Panamá', 'Inglaterra', 'L'], [68, '27/06', '18h', 'Croácia', 'Gana', 'L'], [69, '27/06', '20h30', 'Colômbia', 'Portugal', 'K'], [70, '27/06', '20h30', 'Repescagem 1*', 'Uzbequistão', 'K'], [71, '27/06', '23h', 'Argélia', 'Áustria', 'J'], [72, '27/06', '23h', 'Jordânia', 'Argentina', 'J']];
+
+// ── utils ─────────────────────────────────────────────────────
+async function sbGet(tabela, params='') {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${tabela}?${params}`, {
+    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+  });
+  return r.json();
+}
+
+async function sbUpsert(tabela, data) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${tabela}`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(data)
+  });
+  return r;
+}
+
+// ── tabs ──────────────────────────────────────────────────────
+function abrirTab(nome, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + nome).classList.add('active');
+  el.classList.add('active');
+  if (nome === 'palpites') carregarPalpites();
+  if (nome === 'resultados') renderResultados();
+}
+
+// ── RESULTADOS ────────────────────────────────────────────────
+let resultadosSalvos = {};
+
+async function renderResultados() {
+  // carrega resultados já salvos
+  const dados = await sbGet('resultados', 'order=jogo_num.asc');
+  if (Array.isArray(dados)) {
+    dados.forEach(d => { resultadosSalvos[d.jogo_num] = { g1: d.gol1, g2: d.gol2 }; });
+  }
+
+  const grid = document.getElementById('resultadosGrid');
+  let html = '';
+  let rodAtual = 0;
+  const rodNomes = ['','🟢 1ª RODADA – 11 a 17/Jun','🟡 2ª RODADA – 18 a 23/Jun','🔴 3ª RODADA – 24 a 27/Jun'];
+  const rodCls  = ['','','r2','r3'];
+
+  JOGOS.forEach(([num,data,hora,t1,t2,grupo], idx) => {
+    const rod = idx < 24 ? 1 : idx < 48 ? 2 : 3;
+    if (rod !== rodAtual) {
+      rodAtual = rod;
+      html += `<div class="res-rodada ${rodCls[rod]}">${rodNomes[rod]}</div>`;
+    }
+    const r = resultadosSalvos[num] || {};
+    const v1 = r.g1 !== undefined ? r.g1 : '';
+    const v2 = r.g2 !== undefined ? r.g2 : '';
+    html += `
+    <div class="res-jogo">
+      <div class="res-num">${num}</div>
+      <div class="res-data">${data}</div>
+      <div class="res-hora">${hora}</div>
+      <div class="res-time">${t1}</div>
+      <div class="res-placar">
+        <input type="number" id="r${num}_g1" min="0" max="20" value="${v1}" class="${v1!=='' ? 'salvo' : ''}" placeholder="–">
+        <span class="res-sep">×</span>
+        <input type="number" id="r${num}_g2" min="0" max="20" value="${v2}" class="${v2!=='' ? 'salvo' : ''}" placeholder="–">
+      </div>
+      <div class="res-time fora">${t2}</div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+async function salvarResultados() {
+  const btn = document.querySelector('.btn-salvar-res');
+  btn.textContent = '⏳ Salvando...'; btn.disabled = true;
+
+  const lote = [];
+  JOGOS.forEach(([num]) => {
+    const g1 = document.getElementById(`r${num}_g1`)?.value;
+    const g2 = document.getElementById(`r${num}_g2`)?.value;
+    if (g1 !== '' && g2 !== '' && g1 !== undefined && g2 !== undefined) {
+      lote.push({ jogo_num: num, gol1: parseInt(g1), gol2: parseInt(g2) });
+    }
+  });
+
+  const r = await sbUpsert('resultados', lote);
+  if (r.ok || r.status === 201) {
+    // marca inputs como salvos
+    lote.forEach(l => {
+      document.getElementById(`r${l.jogo_num}_g1`)?.classList.add('salvo');
+      document.getElementById(`r${l.jogo_num}_g2`)?.classList.add('salvo');
+      resultadosSalvos[l.jogo_num] = { g1: l.gol1, g2: l.gol2 };
+    });
+    alert(`✅ ${lote.length} resultados salvos!`);
+  } else {
+    alert('Erro ao salvar: ' + await r.text());
+  }
+  btn.textContent = '💾 Salvar Resultados'; btn.disabled = false;
+}
+
+// ── PALPITES ──────────────────────────────────────────────────
+async function carregarPalpites() {
+  document.getElementById('palpitesContainer').innerHTML =
+    '<div class="loading"><div class="spinner"></div><br>Carregando...</div>';
+
+  const dados = await sbGet('palpites', 'order=created_at.asc');
+  if (!Array.isArray(dados) || dados.length === 0) {
+    document.getElementById('palpitesContainer').innerHTML =
+      '<div class="loading">Nenhum palpite ainda.</div>';
+    document.getElementById('badgeTotal').textContent = '0 participantes';
+    return;
+  }
+
+  document.getElementById('badgeTotal').textContent = dados.length + ' participante(s)';
+
+  let html = '';
+  dados.forEach(p => {
+    const itens = JOGOS.map(([num,data,hora,t1,t2,grupo]) => {
+      const g1 = p[`j${num}_casa`];
+      const g2 = p[`j${num}_fora`];
+      if (g1 === null || g1 === undefined) return '';
+      const res = resultadosSalvos[num];
+      let cls = 'sem-resultado';
+      if (res !== undefined) {
+        if (g1 === res.g1 && g2 === res.g2) cls = 'acerto3';
+        else {
+          const rp = g1 > g2 ? 1 : g1 < g2 ? -1 : 0;
+          const rr = res.g1 > res.g2 ? 1 : res.g1 < res.g2 ? -1 : 0;
+          cls = rp === rr ? 'acerto1' : 'erro';
+        }
+      }
+      return `<div class="palpite-item ${cls}">
+        <span class="p-jogo">J${num} Gr.${grupo}</span>
+        <span class="p-times">${t1} × ${t2}</span>
+        <span class="p-score">${g1}–${g2}</span>
+      </div>`;
+    }).join('');
+
+    html += `
+    <div class="participante-card">
+      <div class="participante-header" onclick="togglePalpite(this)">
+        <div class="p-info">
+          <div>
+            <div class="p-nome">${p.nome}</div>
+            <div class="p-wpp">${p.whatsapp || ''}</div>
+          </div>
+        </div>
+        <div class="p-pts" id="pts_${p.id}">– <span>pts</span></div>
+      </div>
+      <div class="p-palpites">
+        <div class="palpites-lista">${itens}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('palpitesContainer').innerHTML = html;
+}
+
+function togglePalpite(el) {
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ── RANKING ───────────────────────────────────────────────────
+async function calcularRanking() {
+  const btn = document.querySelector('.btn-calcular');
+  btn.textContent = '⏳ Calculando...'; btn.disabled = true;
+
+  // garante resultados carregados
+  const res = await sbGet('resultados', 'order=jogo_num.asc');
+  const resMap = {};
+  if (Array.isArray(res)) res.forEach(r => { resMap[r.jogo_num] = { g1: r.gol1, g2: r.gol2 }; });
+
+  const palpites = await sbGet('palpites', 'order=created_at.asc');
+  if (!Array.isArray(palpites) || palpites.length === 0) {
+    document.getElementById('rankingContainer').innerHTML =
+      '<div class="loading">Nenhum palpite recebido ainda.</div>';
+    btn.textContent = '⚽ Calcular Pontos'; btn.disabled = false;
+    return;
+  }
+
+  const jogosComRes = Object.keys(resMap).length;
+
+  const ranking = palpites.map(p => {
+    let pts = 0, feitos = 0;
+    JOGOS.forEach(([num]) => {
+      const g1 = p[`j${num}_casa`];
+      const g2 = p[`j${num}_fora`];
+      if (g1 === null || g1 === undefined) return;
+      feitos++;
+      const r = resMap[num];
+      if (!r) return;
+      if (g1 === r.g1 && g2 === r.g2) { pts += 3; return; }
+      const rp = g1 > g2 ? 1 : g1 < g2 ? -1 : 0;
+      const rr = r.g1 > r.g2 ? 1 : r.g1 < r.g2 ? -1 : 0;
+      if (rp === rr) pts += 1;
+    });
+    return { nome: p.nome, wpp: p.whatsapp||'', pts, feitos, id: p.id };
+  }).sort((a,b) => b.pts - a.pts);
+
+  // atualiza badges nos palpites
+  ranking.forEach(p => {
+    const el = document.getElementById('pts_'+p.id);
+    if (el) el.innerHTML = `${p.pts} <span>pts</span>`;
+  });
+
+  const medalhas = ['🥇','🥈','🥉'];
+  const trCls = ['tr-gold','tr-silver','tr-bronze'];
+  let rows = ranking.map((p,i) => `
+    <tr class="${trCls[i]||''}">
+      <td class="rank-pos">${medalhas[i]||((i+1)+'º')}</td>
+      <td><div class="rank-nome">${p.nome}</div><div style="font-size:.78rem;color:var(--fraco)">${p.wpp}</div></td>
+      <td class="rank-pts">${p.pts}</td>
+      <td class="rank-feitos">${p.feitos}/72</td>
+      <td class="rank-feitos">${jogosComRes > 0 ? (p.pts/(jogosComRes*3)*100).toFixed(1)+'%' : '-'}</td>
+    </tr>`).join('');
+
+  const arrecadado = (ranking.length * 20).toLocaleString('pt-BR', {minimumFractionDigits:2});
+
+  document.getElementById('rankingContainer').innerHTML = `
+    <table class="ranking-table">
+      <thead><tr>
+        <th>Pos.</th><th>Participante</th><th style="text-align:center">Pontos</th>
+        <th style="text-align:center">Palpites</th><th style="text-align:center">Aproveit.</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="arrecadado">
+      <span>💰 Total arrecadado (${ranking.length} cotas × R$ 20,00)</span>
+      <span>R$ ${arrecadado}</span>
+    </div>`;
+
+  btn.textContent = '⚽ Calcular Pontos'; btn.disabled = false;
+}
+
+// ── init ──────────────────────────────────────────────────────
+renderResultados();
+</script>
+</body>
+</html>

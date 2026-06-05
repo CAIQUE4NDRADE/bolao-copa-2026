@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 Bolão Copa do Mundo 2026 – Paulínia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #009c3b;
+    --amarelo: #ffdf00;
+    --azul: #002776;
+    --dourado: #c9a227;
+    --cinza-escuro: #1a1a2e;
+    --cinza-meio: #16213e;
+    --cinza-card: #0f3460;
+    --texto: #e8e8e8;
+    --texto-fraco: #9aa0b4;
+    --borda: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--cinza-escuro);
+    color: var(--texto);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(0,156,59,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(0,39,118,0.2) 0%, transparent 50%);
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--azul) 0%, #001a5c 50%, var(--verde) 100%);
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--amarelo);
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 20px,
+      rgba(255,223,0,0.03) 20px, rgba(255,223,0,0.03) 40px
+    );
+  }
+  .header-flag {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    color: var(--amarelo);
+    letter-spacing: 3px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    line-height: 1;
+  }
+  header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+    margin-top: 6px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .header-badge {
+    display: inline-block;
+    margin-top: 16px;
+    background: var(--amarelo);
+    color: var(--azul);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 5px 20px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+  }
+
+  /* REGRAS */
+  .regras {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .regra-card {
+    background: var(--cinza-card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .regra-card .icone { font-size: 1.6rem; margin-bottom: 6px; }
+  .regra-card .pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amarelo);
+  }
+  .regra-card p { font-size: 0.82rem; color: var(--texto-fraco); line-height: 1.4; }
+
+  /* PREMIOS */
+  .premios {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .premio {
+    background: linear-gradient(135deg, var(--cinza-card), var(--cinza-meio));
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid var(--borda);
+  }
+  .premio .medal { font-size: 1.8rem; }
+  .premio .lugar {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--amarelo);
+    margin: 4px 0 2px;
+  }
+  .premio .pct { font-size: 0.85rem; color: var(--texto-fraco); }
+
+  /* FORM */
+  .form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  /* DADOS PARTICIPANTE */
+  .participante-box {
+    background: var(--cinza-card);
+    border: 1px solid rgba(255,223,0,0.3);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .participante-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amarelo);
+    margin-bottom: 16px;
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 500px) { .field-row { grid-template-columns: 1fr; } }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-size: 0.78rem;
+    color: var(--texto-fraco);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  .field input, .field select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--texto);
+    font-size: 0.95rem;
+    font-family: 'Barlow', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--amarelo);
+    background: rgba(255,223,0,0.06);
+  }
+
+  /* RODADA */
+  .rodada-section {
+    margin-bottom: 32px;
+  }
+  .rodada-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, var(--verde), transparent);
+    border-radius: 8px;
+    border-left: 4px solid var(--amarelo);
+  }
+  .rodada-titulo span:first-child {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+  .rodada-titulo span:last-child {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* DATA LABEL */
+  .data-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--texto-fraco);
+    padding: 6px 0 4px;
+    border-top: 1px solid var(--borda);
+    margin-top: 8px;
+  }
+  .data-label:first-child { border-top: none; margin-top: 0; }
+
+  /* JOGO CARD */
+  .jogo {
+    background: var(--cinza-card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .jogo:hover { border-color: rgba(255,223,0,0.25); }
+  .jogo.filled { border-color: rgba(0,156,59,0.35); }
+
+  .time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+  }
+  .time .bandeira { font-size: 1.5rem; }
+  .time .nome {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .time .grupo-tag {
+    font-size: 0.65rem;
+    color: var(--texto-fraco);
+    background: rgba(255,255,255,0.06);
+    padding: 1px 6px;
+    border-radius: 10px;
+  }
+
+  .placar-inputs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-direction: column;
+  }
+  .placar-inputs .vs-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .placar-inputs input[type=number] {
+    width: 52px;
+    height: 52px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Bebas Neue', sans-serif;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    color: var(--amarelo);
+    outline: none;
+    transition: all 0.2s;
+    -moz-appearance: textfield;
+  }
+  .placar-inputs input[type=number]::-webkit-inner-spin-button,
+  .placar-inputs input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .placar-inputs input[type=number]:focus {
+    border-color: var(--amarelo);
+    background: rgba(255,223,0,0.08);
+    transform: scale(1.05);
+  }
+  .placar-inputs input[type=number].preenchido {
+    border-color: var(--verde);
+    background: rgba(0,156,59,0.12);
+  }
+  .vs-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--texto-fraco);
+  }
+  .horario-tag {
+    font-size: 0.65rem;
+    color: var(--texto-fraco);
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  /* CONTADOR */
+  .contador-box {
+    position: sticky;
+    bottom: 20px;
+    background: var(--cinza-card);
+    border: 1px solid var(--amarelo);
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    z-index: 100;
+    margin-top: 20px;
+  }
+  .contador-info span:first-child {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--amarelo);
+  }
+  .contador-info span:last-child {
+    font-size: 0.75rem;
+    color: var(--texto-fraco);
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde), var(--amarelo));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* BOTÃO ENVIAR */
+  .btn-enviar {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--verde), #007a2f);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,156,59,0.3);
+  }
+  .btn-enviar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0,156,59,0.4);
+    background: linear-gradient(135deg, #00b347, var(--verde));
+  }
+  .btn-enviar:active { transform: translateY(0); }
+
+  /* AVISO */
+  .aviso {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--texto-fraco);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* IMPRESSÃO */
+  .btn-imprimir {
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    color: var(--amarelo);
+    border: 1px solid var(--amarelo);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+  }
+  .btn-imprimir:hover { background: rgba(255,223,0,0.08); }
+
+  /* SUCESSO */
+  .sucesso-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .sucesso-box {
+    background: var(--cinza-card);
+    border: 2px solid var(--verde);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+  }
+  .sucesso-box .emoji { font-size: 4rem; margin-bottom: 16px; }
+  .sucesso-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+  .sucesso-box p { color: var(--texto-fraco); font-size: 0.9rem; margin-top: 10px; line-height: 1.5; }
+  .btn-fechar {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @media print {
+    .contador-box, .btn-enviar, .btn-imprimir { display: none !important; }
+    body { background: white; color: black; }
+    .jogo { border: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-flag">🇧🇷 🏆 🌎</div>
+  <h1>Bolão Copa do Mundo</h1>
+  <h2>Paulínia · 2026 · Fase de Grupos</h2>
+  <div class="header-badge">💰 R$ 20,00 por cota</div>
+</header>
+
+<div class="regras">
+  <div class="regra-card">
+    <div class="icone">🎯</div>
+    <div class="pts">3 pts</div>
+    <p>Placar exato</p>
+  </div>
+  <div class="regra-card">
+    <div class="icone">✅</div>
+    <div class="pts">1 pt</div>
+    <p>Resultado certo (vitória, empate ou derrota)</p>
+  </div>
+  <div class="regra-card">
+    <div class="icone">❌</div>
+    <div class="pts">0 pts</div>
+    <p>Errou o resultado</p>
+  </div>
+</div>
+
+<div class="premios">
+  <div class="premio">
+    <div class="medal">🥇</div>
+    <div class="lugar">1º Lugar</div>
+    <div class="pct">50% do arrecadado</div>
+  </div>
+  <div class="premio">
+    <div class="medal">🥈</div>
+    <div class="lugar">2º Lugar</div>
+    <div class="pct">35% do arrecadado</div>
+  </div>
+  <div class="premio">
+    <div class="medal">🥉</div>
+    <div class="lugar">3º Lugar</div>
+    <div class="pct">15% do arrecadado</div>
+  </div>
+</div>
+
+<div class="form-wrapper">
+  <!-- PARTICIPANTE -->
+  <div class="participante-box">
+    <h3>👤 Dados do Participante</h3>
+    <div class="field-row">
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" id="nome" placeholder="Seu nome" required>
+      </div>
+      <div class="field">
+        <label>WhatsApp</label>
+        <input type="tel" id="whatsapp" placeholder="(19) 9xxxx-xxxx">
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= RODADA 1 ======= -->
+  <div class="rodada-section">
+    <div class="rodada-titulo">
+      <span>1ª RODADA</span>
+      <span>11 a 17 de Junho</span>
+    </div>
+
+    <div class="data-label">📅 11/06 – Quinta-feira</div>
+    <div class="jogo" data-jogo="1">
+      <div class="time"><div class="bandeira">🇲🇽</div><div class="nome">México</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="1"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="1"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇿🇦</div><div class="nome">África do Sul</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="2">
+      <div class="time"><div class="bandeira">🇰🇷</div><div class="nome">Coreia do Sul</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="2"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="2"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa D*</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="data-label">📅 12/06 – Sexta-feira</div>
+    <div class="jogo" data-jogo="3">
+      <div class="time"><div class="bandeira">🇨🇦</div><div class="nome">Canadá</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="3"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="3"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa A*</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="4">
+      <div class="time"><div class="bandeira">🇺🇸</div><div class="nome">Estados Unidos</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="4"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="4"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇵🇾</div><div class="nome">Paraguai</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="data-label">📅 13/06 – Sábado</div>
+    <div class="jogo" data-jogo="5">
+      <div class="time"><div class="bandeira">🇦🇺</div><div class="nome">Austrália</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="5"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="5"></div><div class="horario-tag">01h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa C*</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="6">
+      <div class="time"><div class="bandeira">🇶🇦</div><div class="nome">Catar</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="6"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="6"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇭</div><div class="nome">Suíça</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="7">
+      <div class="time"><div class="bandeira">🇧🇷</div><div class="nome">Brasil</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="7"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="7"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇲🇦</div><div class="nome">Marrocos</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="8">
+      <div class="time"><div class="bandeira">🇭🇹</div><div class="nome">Haiti</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="8"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="8"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="nome">Escócia</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="data-label">📅 14/06 – Domingo</div>
+    <div class="jogo" data-jogo="9">
+      <div class="time"><div class="bandeira">🇩🇪</div><div class="nome">Alemanha</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="9"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="9"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇼</div><div class="nome">Curaçao</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="10">
+      <div class="time"><div class="bandeira">🇳🇱</div><div class="nome">Holanda</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="10"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="10"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇯🇵</div><div class="nome">Japão</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="11">
+      <div class="time"><div class="bandeira">🇨🇮</div><div class="nome">Costa do Marfim</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="11"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="11"></div><div class="horario-tag">20h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇨</div><div class="nome">Equador</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="12">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa B*</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="12"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="12"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇹🇳</div><div class="nome">Tunísia</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="data-label">📅 15/06 – Segunda-feira</div>
+    <div class="jogo" data-jogo="13">
+      <div class="time"><div class="bandeira">🇪🇸</div><div class="nome">Espanha</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="13"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="13"></div><div class="horario-tag">13h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇻</div><div class="nome">Cabo Verde</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="14">
+      <div class="time"><div class="bandeira">🇧🇪</div><div class="nome">Bélgica</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="14"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="14"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇬</div><div class="nome">Egito</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="15">
+      <div class="time"><div class="bandeira">🇸🇦</div><div class="nome">Arábia Saudita</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="15"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="15"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇺🇾</div><div class="nome">Uruguai</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="16">
+      <div class="time"><div class="bandeira">🇮🇷</div><div class="nome">Irã</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="16"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="16"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇳🇿</div><div class="nome">Nova Zelândia</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="data-label">📅 16/06 – Terça-feira</div>
+    <div class="jogo" data-jogo="17">
+      <div class="time"><div class="bandeira">🇦🇷</div><div class="nome">Argentina</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="17"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="17"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇩🇿</div><div class="nome">Argélia</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="18">
+      <div class="time"><div class="bandeira">🇫🇷</div><div class="nome">França</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="18"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="18"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇸🇳</div><div class="nome">Senegal</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="19">
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 2*</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="19"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="19"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇳🇴</div><div class="nome">Noruega</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="data-label">📅 17/06 – Quarta-feira</div>
+    <div class="jogo" data-jogo="20">
+      <div class="time"><div class="bandeira">🇦🇹</div><div class="nome">Áustria</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="20"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="20"></div><div class="horario-tag">01h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇯🇴</div><div class="nome">Jordânia</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="21">
+      <div class="time"><div class="bandeira">🇵🇹</div><div class="nome">Portugal</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="21"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="21"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 1*</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="22">
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="nome">Inglaterra</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="22"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="22"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇭🇷</div><div class="nome">Croácia</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="23">
+      <div class="time"><div class="bandeira">🇬🇭</div><div class="nome">Gana</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="23"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="23"></div><div class="horario-tag">20h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇵🇦</div><div class="nome">Panamá</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="24">
+      <div class="time"><div class="bandeira">🇺🇿</div><div class="nome">Uzbequistão</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="24"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="24"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇴</div><div class="nome">Colômbia</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+  </div>
+
+  <!-- ======= RODADA 2 ======= -->
+  <div class="rodada-section">
+    <div class="rodada-titulo">
+      <span>2ª RODADA</span>
+      <span>18 a 23 de Junho</span>
+    </div>
+
+    <div class="data-label">📅 18/06 – Quinta-feira</div>
+    <div class="jogo" data-jogo="25">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa D*</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="25"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="25"></div><div class="horario-tag">13h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇿🇦</div><div class="nome">África do Sul</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="26">
+      <div class="time"><div class="bandeira">🇨🇭</div><div class="nome">Suíça</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="26"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="26"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa A*</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="27">
+      <div class="time"><div class="bandeira">🇨🇦</div><div class="nome">Canadá</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="27"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="27"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇶🇦</div><div class="nome">Catar</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="28">
+      <div class="time"><div class="bandeira">🇲🇽</div><div class="nome">México</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="28"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="28"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇰🇷</div><div class="nome">Coreia do Sul</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="data-label">📅 19/06 – Sexta-feira</div>
+    <div class="jogo" data-jogo="29">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa C*</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="29"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="29"></div><div class="horario-tag">01h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇵🇾</div><div class="nome">Paraguai</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="30">
+      <div class="time"><div class="bandeira">🇺🇸</div><div class="nome">Estados Unidos</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="30"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="30"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇦🇺</div><div class="nome">Austrália</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="31">
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="nome">Escócia</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="31"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="31"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇲🇦</div><div class="nome">Marrocos</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="32">
+      <div class="time"><div class="bandeira">🇧🇷</div><div class="nome">Brasil</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="32"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="32"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇭🇹</div><div class="nome">Haiti</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="data-label">📅 20/06 – Sábado</div>
+    <div class="jogo" data-jogo="33">
+      <div class="time"><div class="bandeira">🇳🇱</div><div class="nome">Holanda</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="33"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="33"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa B*</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="34">
+      <div class="time"><div class="bandeira">🇩🇪</div><div class="nome">Alemanha</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="34"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="34"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇮</div><div class="nome">Costa do Marfim</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="35">
+      <div class="time"><div class="bandeira">🇪🇨</div><div class="nome">Equador</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="35"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="35"></div><div class="horario-tag">21h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇼</div><div class="nome">Curaçao</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="data-label">📅 21/06 – Domingo</div>
+    <div class="jogo" data-jogo="36">
+      <div class="time"><div class="bandeira">🇹🇳</div><div class="nome">Tunísia</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="36"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="36"></div><div class="horario-tag">01h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇯🇵</div><div class="nome">Japão</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="37">
+      <div class="time"><div class="bandeira">🇪🇸</div><div class="nome">Espanha</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="37"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="37"></div><div class="horario-tag">13h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇸🇦</div><div class="nome">Arábia Saudita</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="38">
+      <div class="time"><div class="bandeira">🇧🇪</div><div class="nome">Bélgica</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="38"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="38"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇮🇷</div><div class="nome">Irã</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="39">
+      <div class="time"><div class="bandeira">🇺🇾</div><div class="nome">Uruguai</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="39"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="39"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇻</div><div class="nome">Cabo Verde</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="40">
+      <div class="time"><div class="bandeira">🇳🇿</div><div class="nome">Nova Zelândia</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="40"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="40"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇬</div><div class="nome">Egito</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="data-label">📅 22/06 – Segunda-feira</div>
+    <div class="jogo" data-jogo="41">
+      <div class="time"><div class="bandeira">🇦🇷</div><div class="nome">Argentina</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="41"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="41"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇦🇹</div><div class="nome">Áustria</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="42">
+      <div class="time"><div class="bandeira">🇫🇷</div><div class="nome">França</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="42"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="42"></div><div class="horario-tag">18h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 2*</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="43">
+      <div class="time"><div class="bandeira">🇳🇴</div><div class="nome">Noruega</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="43"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="43"></div><div class="horario-tag">21h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇸🇳</div><div class="nome">Senegal</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="data-label">📅 23/06 – Terça-feira</div>
+    <div class="jogo" data-jogo="44">
+      <div class="time"><div class="bandeira">🇯🇴</div><div class="nome">Jordânia</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="44"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="44"></div><div class="horario-tag">00h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇩🇿</div><div class="nome">Argélia</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="45">
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="nome">Inglaterra</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="45"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="45"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇬🇭</div><div class="nome">Gana</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="46">
+      <div class="time"><div class="bandeira">🇵🇹</div><div class="nome">Portugal</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="46"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="46"></div><div class="horario-tag">14h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇺🇿</div><div class="nome">Uzbequistão</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="47">
+      <div class="time"><div class="bandeira">🇵🇦</div><div class="nome">Panamá</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="47"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="47"></div><div class="horario-tag">20h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇭🇷</div><div class="nome">Croácia</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="48">
+      <div class="time"><div class="bandeira">🇨🇴</div><div class="nome">Colômbia</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="48"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="48"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 1*</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+  </div>
+
+  <!-- ======= RODADA 3 ======= -->
+  <div class="rodada-section">
+    <div class="rodada-titulo">
+      <span>3ª RODADA</span>
+      <span>24 a 27 de Junho</span>
+    </div>
+
+    <div class="data-label">📅 24/06 – Quarta-feira</div>
+    <div class="jogo" data-jogo="49">
+      <div class="time"><div class="bandeira">🇨🇭</div><div class="nome">Suíça</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="49"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="49"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇦</div><div class="nome">Canadá</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="50">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa A*</div><div class="grupo-tag">Grupo B</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="50"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="50"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇶🇦</div><div class="nome">Catar</div><div class="grupo-tag">Grupo B</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="51">
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="nome">Escócia</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="51"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="51"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇧🇷</div><div class="nome">Brasil</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="52">
+      <div class="time"><div class="bandeira">🇲🇦</div><div class="nome">Marrocos</div><div class="grupo-tag">Grupo C</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="52"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="52"></div><div class="horario-tag">19h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇭🇹</div><div class="nome">Haiti</div><div class="grupo-tag">Grupo C</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="53">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa D*</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="53"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="53"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇲🇽</div><div class="nome">México</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="54">
+      <div class="time"><div class="bandeira">🇿🇦</div><div class="nome">África do Sul</div><div class="grupo-tag">Grupo A</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="54"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="54"></div><div class="horario-tag">22h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇰🇷</div><div class="nome">Coreia do Sul</div><div class="grupo-tag">Grupo A</div></div>
+    </div>
+
+    <div class="data-label">📅 25/06 – Quinta-feira</div>
+    <div class="jogo" data-jogo="55">
+      <div class="time"><div class="bandeira">🇪🇨</div><div class="nome">Equador</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="55"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="55"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇩🇪</div><div class="nome">Alemanha</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="56">
+      <div class="time"><div class="bandeira">🇨🇼</div><div class="nome">Curaçao</div><div class="grupo-tag">Grupo E</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="56"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="56"></div><div class="horario-tag">17h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇨🇮</div><div class="nome">Costa do Marfim</div><div class="grupo-tag">Grupo E</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="57">
+      <div class="time"><div class="bandeira">🇯🇵</div><div class="nome">Japão</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="57"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="57"></div><div class="horario-tag">20h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa B*</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="58">
+      <div class="time"><div class="bandeira">🇹🇳</div><div class="nome">Tunísia</div><div class="grupo-tag">Grupo F</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="58"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="58"></div><div class="horario-tag">20h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇳🇱</div><div class="nome">Holanda</div><div class="grupo-tag">Grupo F</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="59">
+      <div class="time"><div class="bandeira">🇪🇺</div><div class="nome">Europa C*</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="59"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="59"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇺🇸</div><div class="nome">Estados Unidos</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="60">
+      <div class="time"><div class="bandeira">🇵🇾</div><div class="nome">Paraguai</div><div class="grupo-tag">Grupo D</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="60"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="60"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇦🇺</div><div class="nome">Austrália</div><div class="grupo-tag">Grupo D</div></div>
+    </div>
+
+    <div class="data-label">📅 26/06 – Sexta-feira</div>
+    <div class="jogo" data-jogo="61">
+      <div class="time"><div class="bandeira">🇳🇴</div><div class="nome">Noruega</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="61"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="61"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇫🇷</div><div class="nome">França</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="62">
+      <div class="time"><div class="bandeira">🇸🇳</div><div class="nome">Senegal</div><div class="grupo-tag">Grupo I</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="62"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="62"></div><div class="horario-tag">16h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 2*</div><div class="grupo-tag">Grupo I</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="63">
+      <div class="time"><div class="bandeira">🇨🇻</div><div class="nome">Cabo Verde</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="63"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="63"></div><div class="horario-tag">21h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇸🇦</div><div class="nome">Arábia Saudita</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="64">
+      <div class="time"><div class="bandeira">🇺🇾</div><div class="nome">Uruguai</div><div class="grupo-tag">Grupo H</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="64"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="64"></div><div class="horario-tag">21h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇪🇸</div><div class="nome">Espanha</div><div class="grupo-tag">Grupo H</div></div>
+    </div>
+
+    <div class="data-label">📅 27/06 – Sábado</div>
+    <div class="jogo" data-jogo="65">
+      <div class="time"><div class="bandeira">🇪🇬</div><div class="nome">Egito</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="65"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="65"></div><div class="horario-tag">00h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇮🇷</div><div class="nome">Irã</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="66">
+      <div class="time"><div class="bandeira">🇳🇿</div><div class="nome">Nova Zelândia</div><div class="grupo-tag">Grupo G</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="66"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="66"></div><div class="horario-tag">00h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇧🇪</div><div class="nome">Bélgica</div><div class="grupo-tag">Grupo G</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="67">
+      <div class="time"><div class="bandeira">🇵🇦</div><div class="nome">Panamá</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="67"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="67"></div><div class="horario-tag">18h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="nome">Inglaterra</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="68">
+      <div class="time"><div class="bandeira">🇭🇷</div><div class="nome">Croácia</div><div class="grupo-tag">Grupo L</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="68"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="68"></div><div class="horario-tag">18h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇬🇭</div><div class="nome">Gana</div><div class="grupo-tag">Grupo L</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="69">
+      <div class="time"><div class="bandeira">🇨🇴</div><div class="nome">Colômbia</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="69"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="69"></div><div class="horario-tag">20h30 (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇵🇹</div><div class="nome">Portugal</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="70">
+      <div class="time"><div class="bandeira">🌍</div><div class="nome">Repescagem 1*</div><div class="grupo-tag">Grupo K</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="70"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="70"></div><div class="horario-tag">20h30 (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇺🇿</div><div class="nome">Uzbequistão</div><div class="grupo-tag">Grupo K</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="71">
+      <div class="time"><div class="bandeira">🇩🇿</div><div class="nome">Argélia</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="71"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="71"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇦🇹</div><div class="nome">Áustria</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+
+    <div class="jogo" data-jogo="72">
+      <div class="time"><div class="bandeira">🇯🇴</div><div class="nome">Jordânia</div><div class="grupo-tag">Grupo J</div></div>
+      <div class="placar-inputs"><div class="vs-row"><input type="number" min="0" max="20" placeholder="–" data-lado="casa" data-id="72"><span class="vs-sep">×</span><input type="number" min="0" max="20" placeholder="–" data-lado="fora" data-id="72"></div><div class="horario-tag">23h (Brasília)</div></div>
+      <div class="time"><div class="bandeira">🇦🇷</div><div class="nome">Argentina</div><div class="grupo-tag">Grupo J</div></div>
+    </div>
+  </div>
+
+  <!-- CONTADOR STICKY -->
+  <div class="contador-box">
+    <div class="contador-info">
+      <span id="contadorNum">0</span>
+      <span>de 72 jogos preenchidos</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- BOTÕES -->
+  <button class="btn-enviar" onclick="enviarPalpites()">⚽ CONFIRMAR PALPITES</button>
+  <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+  <p class="aviso">
+    * Europa A = Itália/Irlanda do Norte/País de Gales/Bósnia · Europa B = Ucrânia/Suécia/Polônia/Albânia<br>
+    * Europa C = Turquia/Romênia/Eslováquia/Kosovo · Europa D = Dinamarca/Macedônia/Rep. Tcheca/Irlanda<br>
+    * Repescagem 1 = RD Congo/Jamaica/Nova Caledônia · Repescagem 2 = Iraque/Bolívia/Suriname<br><br>
+    Em caso de empate na pontuação, o prêmio será dividido igualmente. 🤝
+  </p>
+</div>
+
+<!-- SUCESSO -->
+<div class="sucesso-overlay" id="sucessoOverlay">
+  <div class="sucesso-box">
+    <div class="emoji">🎉</div>
+    <h3>Palpites Enviados!</h3>
+    <p id="sucessoMsg">Seus palpites foram registrados com sucesso. Boa sorte no Bolão de Paulínia! 🇧🇷⚽🔥</p>
+    <button class="btn-fechar" onclick="fecharSucesso()">OK, VALEU!</button>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://sbpeokzwbnepbdjbivxs.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNicGVva3p3Ym5lcGJkamJpdnhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2Njk5MTMsImV4cCI6MjA5NjI0NTkxM30.9vughnzHa_CYiHEdbuQTLsu9-rJjJ4W-u_HenvBfBH0';
+  const TOTAL = 72;
+
+  function contarPreenchidos() {
+    let count = 0;
+    for (let i = 1; i <= TOTAL; i++) {
+      const casa = document.querySelector(`input[data-lado="casa"][data-id="${i}"]`);
+      const fora = document.querySelector(`input[data-lado="fora"][data-id="${i}"]`);
+      if (casa && fora && casa.value !== '' && fora.value !== '') count++;
+    }
+    return count;
+  }
+
+  function atualizarContador() {
+    const n = contarPreenchidos();
+    document.getElementById('contadorNum').textContent = n;
+    document.getElementById('progressFill').style.width = (n / TOTAL * 100) + '%';
+  }
+
+  document.querySelectorAll('input[type=number]').forEach(inp => {
+    inp.addEventListener('input', function() {
+      if (this.value !== '') {
+        this.classList.add('preenchido');
+        const id = this.dataset.id;
+        const casa = document.querySelector(`input[data-lado="casa"][data-id="${id}"]`);
+        const fora = document.querySelector(`input[data-lado="fora"][data-id="${id}"]`);
+        if (casa.value !== '' && fora.value !== '') {
+          document.querySelector(`.jogo[data-jogo="${id}"]`).classList.add('filled');
+        }
+      } else {
+        this.classList.remove('preenchido');
+        const id = this.dataset.id;
+        document.querySelector(`.jogo[data-jogo="${id}"]`).classList.remove('filled');
+      }
+      atualizarContador();
+    });
+  });
+
+  async function enviarPalpites() {
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    if (!nome) {
+      alert('Por favor, preencha seu nome antes de confirmar!');
+      document.getElementById('nome').focus();
+      return;
+    }
+
+    const preenchidos = contarPreenchidos();
+    if (preenchidos < TOTAL) {
+      const faltam = TOTAL - preenchidos;
+      if (!confirm(`Você ainda tem ${faltam} jogo(s) sem palpite. Deseja confirmar mesmo assim?`)) return;
+    }
+
+    // Monta objeto de palpites
+    const palpites = {};
+    for (let i = 1; i <= TOTAL; i++) {
+      const casa = document.querySelector(`input[data-lado="casa"][data-id="${i}"]`);
+      const fora = document.querySelector(`input[data-lado="fora"][data-id="${i}"]`);
+      if (casa && fora && casa.value !== '' && fora.value !== '') {
+        palpites[`j${i}_casa`] = parseInt(casa.value);
+        palpites[`j${i}_fora`] = parseInt(fora.value);
+      }
+    }
+
+    // Desabilita botão
+    const btn = document.querySelector('.btn-enviar');
+    btn.disabled = true;
+    btn.textContent = '⏳ Enviando...';
+
+    try {
+      const resp = await fetch(`${SUPABASE_URL}/rest/v1/palpites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ nome, whatsapp, palpites_feitos: preenchidos, ...palpites })
+      });
+
+      if (!resp.ok) {
+        const err = await resp.text();
+        throw new Error(err);
+      }
+
+      document.getElementById('sucessoMsg').textContent =
+        `${nome}, seus ${preenchidos} palpites foram registrados! Boa sorte no Bolão de Paulínia! 🇧🇷⚽🔥`;
+      document.getElementById('sucessoOverlay').style.display = 'flex';
+
+    } catch(e) {
+      alert('Erro ao enviar: ' + e.message + '\n\nVerifique se a tabela foi criada no Supabase.');
+      btn.disabled = false;
+      btn.textContent = '⚽ CONFIRMAR PALPITES';
+    }
+  }
+
+  function fecharSucesso() {
+    document.getElementById('sucessoOverlay').style.display = 'none';
+  }
+</script>
+</body>
+</html>
