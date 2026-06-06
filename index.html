@@ -1242,22 +1242,6 @@
         `</div>`;
       document.getElementById('sucessoOverlay').style.display = 'flex';
 
-      // Abre WhatsApp com mensagem de confirmação
-      const telWpp = whatsapp.replace(/\D/g,'');
-      if (telWpp.length >= 10) {
-        const msg = encodeURIComponent(
-          `✅ *Bolão Copa 2026 – Paulínia*\n\n` +
-          `Olá *${nome}*! Seus palpites foram registrados com sucesso! 🎉\n\n` +
-          `📊 *${preenchidos}/72* jogos preenchidos\n\n` +
-          `🏅 Acompanhe o ranking ao vivo:\nhttps://caique4ndrade.github.io/bolao-copa-2026/ranking.html\n\n` +
-          `💰 Não esqueça de pagar a cota: *R$ 20,00*\n` +
-          `Chave PIX (CPF): *418.492.188-46*\n\n` +
-          `Boa sorte! 🇧🇷⚽🔥`
-        );
-        setTimeout(() => {
-          window.open(`https://wa.me/55${telWpp}?text=${msg}`, '_blank');
-        }, 1500);
-      }
 
     } catch(e) {
       alert('Erro ao enviar: ' + e.message + '\n\nVerifique se a tabela foi criada no Supabase.');
