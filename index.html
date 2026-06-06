@@ -1195,7 +1195,18 @@
     const preenchidos = contarPreenchidos();
     if (preenchidos < TOTAL) {
       const faltam = TOTAL - preenchidos;
-      if (!confirm(`Você ainda tem ${faltam} jogo(s) sem palpite. Deseja confirmar mesmo assim?`)) return;
+      alert(`⚠️ Você ainda tem ${faltam} jogo(s) sem palpite!\n\nPreencha todos os 72 jogos para confirmar.`);
+      // Rola até o primeiro jogo vazio
+      for (let i = 1; i <= TOTAL; i++) {
+        const casa = document.querySelector(`input[data-lado="casa"][data-id="${i}"]`);
+        const fora = document.querySelector(`input[data-lado="fora"][data-id="${i}"]`);
+        if (casa && (casa.value === '' || fora.value === '')) {
+          casa.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          casa.focus();
+          break;
+        }
+      }
+      return;
     }
 
     // Monta objeto de palpites
