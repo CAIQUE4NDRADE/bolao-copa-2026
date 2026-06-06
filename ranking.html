@@ -287,7 +287,7 @@ async function carregar() {
         if (rp === rr) { pts += 1; acertos1++; }
       }
       return { nome: p.nome, pts, feitos, acertos3, acertos1 };
-    }).sort((a,b) => b.pts - a.pts || b.acertos3 - a.acertos3);
+    }).sort((a,b) => b.pts - a.pts || b.acertos3 - a.acertos3 || b.acertos1 - a.acertos1);
 
     const maxPts = jogosComRes > 0 ? jogosComRes * 3 : 1;
     const arrecadado = (palpites.length * 20).toLocaleString('pt-BR', {minimumFractionDigits:2});

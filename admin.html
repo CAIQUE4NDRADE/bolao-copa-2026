@@ -57,8 +57,10 @@ header p{color:rgba(255,255,255,.7);font-size:.8rem;margin-top:3px}
 .btn-limpar-jogo{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.35);color:var(--vermelho);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:.8rem;transition:all .2s;flex-shrink:0}
 .btn-limpar-jogo:hover{background:rgba(229,57,53,.35)}
 .res-sep{font-family:'Bebas Neue',sans-serif;color:var(--fraco)}
-.btn-salvar-res{background:var(--verde);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;cursor:pointer;margin-top:14px;transition:all .2s}
+.btn-salvar-res{background:var(--verde);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;cursor:pointer;transition:all .2s}
 .btn-salvar-res:hover{background:#007a2f}
+.btn-buscar-api{background:rgba(0,39,118,0.6);color:#fff;border:1px solid rgba(100,149,237,0.5);padding:10px 24px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;cursor:pointer;transition:all .2s}
+.btn-buscar-api:hover{background:rgba(0,39,118,0.9);border-color:var(--amarelo)}
 
 /* PALPITES */
 .palpites-header{display:flex;align-items:center;gap:12px;padding:16px 0 10px;flex-wrap:wrap}
@@ -153,7 +155,11 @@ header p{color:rgba(255,255,255,.7);font-size:.8rem;margin-top:3px}
 <!-- RESULTADOS -->
 <div class="tab-content active" id="tab-resultados">
   <div id="resultadosGrid"><div class="loading"><div class="spinner"></div><br>Carregando...</div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
   <button class="btn-salvar-res" onclick="salvarResultados()">💾 Salvar Resultados</button>
+  <button class="btn-buscar-api" onclick="buscarResultadosAPI()">🔄 Buscar Resultados Automáticos</button>
+</div>
+<div id="apiStatus" style="font-size:.82rem;color:var(--fraco);margin-top:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;"></div>
 </div>
 
 <!-- PALPITES -->
@@ -181,7 +187,7 @@ header p{color:rgba(255,255,255,.7);font-size:.8rem;margin-top:3px}
 const SUPABASE_URL = 'https://sbpeokzwbnepbdjbivxs.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNicGVva3p3Ym5lcGJkamJpdnhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2Njk5MTMsImV4cCI6MjA5NjI0NTkxM30.9vughnzHa_CYiHEdbuQTLsu9-rJjJ4W-u_HenvBfBH0';
 const SENHA_HASH   = 'Safra@2022';
-const JOGOS = [[1, '11/06', '16h', 'México', 'África do Sul', 'A'], [2, '11/06', '23h', 'Coreia do Sul', 'Europa D*', 'A'], [3, '12/06', '16h', 'Canadá', 'Europa A*', 'B'], [4, '12/06', '22h', 'Estados Unidos', 'Paraguai', 'D'], [5, '13/06', '01h', 'Austrália', 'Europa C*', 'D'], [6, '13/06', '16h', 'Catar', 'Suíça', 'B'], [7, '13/06', '19h', 'Brasil', 'Marrocos', 'C'], [8, '13/06', '22h', 'Haiti', 'Escócia', 'C'], [9, '14/06', '14h', 'Alemanha', 'Curaçao', 'E'], [10, '14/06', '17h', 'Holanda', 'Japão', 'F'], [11, '14/06', '20h', 'Costa do Marfim', 'Equador', 'E'], [12, '14/06', '23h', 'Europa B*', 'Tunísia', 'F'], [13, '15/06', '13h', 'Espanha', 'Cabo Verde', 'H'], [14, '15/06', '16h', 'Bélgica', 'Egito', 'G'], [15, '15/06', '19h', 'Arábia Saudita', 'Uruguai', 'H'], [16, '15/06', '22h', 'Irã', 'Nova Zelândia', 'G'], [17, '16/06', '14h', 'Argentina', 'Argélia', 'J'], [18, '16/06', '16h', 'França', 'Senegal', 'I'], [19, '16/06', '19h', 'Repescagem 2*', 'Noruega', 'I'], [20, '17/06', '01h', 'Áustria', 'Jordânia', 'J'], [21, '17/06', '14h', 'Portugal', 'Repescagem 1*', 'K'], [22, '17/06', '17h', 'Inglaterra', 'Croácia', 'L'], [23, '17/06', '20h', 'Gana', 'Panamá', 'L'], [24, '17/06', '23h', 'Uzbequistão', 'Colômbia', 'K'], [25, '18/06', '13h', 'Europa D*', 'África do Sul', 'A'], [26, '18/06', '16h', 'Suíça', 'Europa A*', 'B'], [27, '18/06', '19h', 'Canadá', 'Catar', 'B'], [28, '18/06', '22h', 'México', 'Coreia do Sul', 'A'], [29, '19/06', '01h', 'Europa C*', 'Paraguai', 'D'], [30, '19/06', '16h', 'Estados Unidos', 'Austrália', 'D'], [31, '19/06', '19h', 'Escócia', 'Marrocos', 'C'], [32, '19/06', '22h', 'Brasil', 'Haiti', 'C'], [33, '20/06', '14h', 'Holanda', 'Europa B*', 'F'], [34, '20/06', '17h', 'Alemanha', 'Costa do Marfim', 'E'], [35, '20/06', '21h', 'Equador', 'Curaçao', 'E'], [36, '21/06', '01h', 'Tunísia', 'Japão', 'F'], [37, '21/06', '13h', 'Espanha', 'Arábia Saudita', 'H'], [38, '21/06', '16h', 'Bélgica', 'Irã', 'G'], [39, '21/06', '19h', 'Uruguai', 'Cabo Verde', 'H'], [40, '21/06', '22h', 'Nova Zelândia', 'Egito', 'G'], [41, '22/06', '14h', 'Argentina', 'Áustria', 'J'], [42, '22/06', '18h', 'França', 'Repescagem 2*', 'I'], [43, '22/06', '21h', 'Noruega', 'Senegal', 'I'], [44, '23/06', '00h', 'Jordânia', 'Argélia', 'J'], [45, '23/06', '14h', 'Portugal', 'Uzbequistão', 'K'], [46, '23/06', '17h', 'Inglaterra', 'Gana', 'L'], [47, '23/06', '20h', 'Panamá', 'Croácia', 'L'], [48, '23/06', '23h', 'Colômbia', 'Repescagem 1*', 'K'], [49, '24/06', '16h', 'Suíça', 'Canadá', 'B'], [50, '24/06', '16h', 'Europa A*', 'Catar', 'B'], [51, '24/06', '19h', 'Escócia', 'Brasil', 'C'], [52, '24/06', '19h', 'Marrocos', 'Haiti', 'C'], [53, '24/06', '22h', 'Europa D*', 'México', 'A'], [54, '24/06', '22h', 'África do Sul', 'Coreia do Sul', 'A'], [55, '25/06', '17h', 'Equador', 'Alemanha', 'E'], [56, '25/06', '17h', 'Curaçao', 'Costa do Marfim', 'E'], [57, '25/06', '20h', 'Japão', 'Europa B*', 'F'], [58, '25/06', '20h', 'Tunísia', 'Holanda', 'F'], [59, '25/06', '23h', 'Europa C*', 'Estados Unidos', 'D'], [60, '25/06', '23h', 'Paraguai', 'Austrália', 'D'], [61, '26/06', '16h', 'Noruega', 'França', 'I'], [62, '26/06', '16h', 'Senegal', 'Repescagem 2*', 'I'], [63, '26/06', '21h', 'Cabo Verde', 'Arábia Saudita', 'H'], [64, '26/06', '21h', 'Uruguai', 'Espanha', 'H'], [65, '27/06', '00h', 'Egito', 'Irã', 'G'], [66, '27/06', '00h', 'Nova Zelândia', 'Bélgica', 'G'], [67, '27/06', '18h', 'Panamá', 'Inglaterra', 'L'], [68, '27/06', '18h', 'Croácia', 'Gana', 'L'], [69, '27/06', '20h30', 'Colômbia', 'Portugal', 'K'], [70, '27/06', '20h30', 'Repescagem 1*', 'Uzbequistão', 'K'], [71, '27/06', '23h', 'Argélia', 'Áustria', 'J'], [72, '27/06', '23h', 'Jordânia', 'Argentina', 'J']];
+const JOGOS = [[1, '11/06', '16h', 'México', 'África do Sul', 'A'], [2, '11/06', '23h', 'Coreia do Sul', 'Rep. Checa', 'A'], [3, '12/06', '16h', 'Canadá', 'Bósnia e Herz.', 'B'], [4, '12/06', '22h', 'Estados Unidos', 'Paraguai', 'D'], [5, '13/06', '01h', 'Austrália', 'Turquia', 'D'], [6, '13/06', '16h', 'Catar', 'Suíça', 'B'], [7, '13/06', '19h', 'Brasil', 'Marrocos', 'C'], [8, '13/06', '22h', 'Haiti', 'Escócia', 'C'], [9, '14/06', '14h', 'Alemanha', 'Curaçao', 'E'], [10, '14/06', '17h', 'Holanda', 'Japão', 'F'], [11, '14/06', '20h', 'Costa do Marfim', 'Equador', 'E'], [12, '14/06', '23h', 'Suécia', 'Tunísia', 'F'], [13, '15/06', '13h', 'Espanha', 'Cabo Verde', 'H'], [14, '15/06', '16h', 'Bélgica', 'Egito', 'G'], [15, '15/06', '19h', 'Arábia Saudita', 'Uruguai', 'H'], [16, '15/06', '22h', 'Irã', 'Nova Zelândia', 'G'], [17, '16/06', '14h', 'Argentina', 'Argélia', 'J'], [18, '16/06', '16h', 'França', 'Senegal', 'I'], [19, '16/06', '19h', 'Iraque', 'Noruega', 'I'], [20, '17/06', '01h', 'Áustria', 'Jordânia', 'J'], [21, '17/06', '14h', 'Portugal', 'Rep. D. Congo', 'K'], [22, '17/06', '17h', 'Inglaterra', 'Croácia', 'L'], [23, '17/06', '20h', 'Gana', 'Panamá', 'L'], [24, '17/06', '23h', 'Uzbequistão', 'Colômbia', 'K'], [25, '18/06', '13h', 'Rep. Checa', 'África do Sul', 'A'], [26, '18/06', '16h', 'Suíça', 'Bósnia e Herz.', 'B'], [27, '18/06', '19h', 'Canadá', 'Catar', 'B'], [28, '18/06', '22h', 'México', 'Coreia do Sul', 'A'], [29, '19/06', '01h', 'Turquia', 'Paraguai', 'D'], [30, '19/06', '16h', 'Estados Unidos', 'Austrália', 'D'], [31, '19/06', '19h', 'Escócia', 'Marrocos', 'C'], [32, '19/06', '22h', 'Brasil', 'Haiti', 'C'], [33, '20/06', '14h', 'Holanda', 'Suécia', 'F'], [34, '20/06', '17h', 'Alemanha', 'Costa do Marfim', 'E'], [35, '20/06', '21h', 'Equador', 'Curaçao', 'E'], [36, '21/06', '01h', 'Tunísia', 'Japão', 'F'], [37, '21/06', '13h', 'Espanha', 'Arábia Saudita', 'H'], [38, '21/06', '16h', 'Bélgica', 'Irã', 'G'], [39, '21/06', '19h', 'Uruguai', 'Cabo Verde', 'H'], [40, '21/06', '22h', 'Nova Zelândia', 'Egito', 'G'], [41, '22/06', '14h', 'Argentina', 'Áustria', 'J'], [42, '22/06', '18h', 'França', 'Iraque', 'I'], [43, '22/06', '21h', 'Noruega', 'Senegal', 'I'], [44, '23/06', '00h', 'Jordânia', 'Argélia', 'J'], [45, '23/06', '14h', 'Portugal', 'Uzbequistão', 'K'], [46, '23/06', '17h', 'Inglaterra', 'Gana', 'L'], [47, '23/06', '20h', 'Panamá', 'Croácia', 'L'], [48, '23/06', '23h', 'Colômbia', 'Rep. D. Congo', 'K'], [49, '24/06', '16h', 'Suíça', 'Canadá', 'B'], [50, '24/06', '16h', 'Bósnia e Herz.', 'Catar', 'B'], [51, '24/06', '19h', 'Escócia', 'Brasil', 'C'], [52, '24/06', '19h', 'Marrocos', 'Haiti', 'C'], [53, '24/06', '22h', 'Rep. Checa', 'México', 'A'], [54, '24/06', '22h', 'África do Sul', 'Coreia do Sul', 'A'], [55, '25/06', '17h', 'Equador', 'Alemanha', 'E'], [56, '25/06', '17h', 'Curaçao', 'Costa do Marfim', 'E'], [57, '25/06', '20h', 'Japão', 'Suécia', 'F'], [58, '25/06', '20h', 'Tunísia', 'Holanda', 'F'], [59, '25/06', '23h', 'Turquia', 'Estados Unidos', 'D'], [60, '25/06', '23h', 'Paraguai', 'Austrália', 'D'], [61, '26/06', '16h', 'Noruega', 'França', 'I'], [62, '26/06', '16h', 'Senegal', 'Iraque', 'I'], [63, '26/06', '21h', 'Cabo Verde', 'Arábia Saudita', 'H'], [64, '26/06', '21h', 'Uruguai', 'Espanha', 'H'], [65, '27/06', '00h', 'Egito', 'Irã', 'G'], [66, '27/06', '00h', 'Nova Zelândia', 'Bélgica', 'G'], [67, '27/06', '18h', 'Panamá', 'Inglaterra', 'L'], [68, '27/06', '18h', 'Croácia', 'Gana', 'L'], [69, '27/06', '20h30', 'Colômbia', 'Portugal', 'K'], [70, '27/06', '20h30', 'Rep. D. Congo', 'Uzbequistão', 'K'], [71, '27/06', '23h', 'Argélia', 'Áustria', 'J'], [72, '27/06', '23h', 'Jordânia', 'Argentina', 'J']];
 
 // ── LOGIN ─────────────────────────────────────────────────────
 function fazerLogin() {
@@ -402,7 +408,7 @@ async function calcularRanking() {
   }
   const jogosComRes = Object.keys(resMap).length;
   const ranking = palpites.map(p => {
-    let pts = 0, feitos = 0;
+    let pts = 0, feitos = 0, acertos3 = 0, acertos1 = 0;
     JOGOS.forEach(([num]) => {
       const g1 = p[`j${num}_casa`];
       const g2 = p[`j${num}_fora`];
@@ -410,13 +416,13 @@ async function calcularRanking() {
       feitos++;
       const r = resMap[num];
       if (!r) return;
-      if (g1===r.g1 && g2===r.g2) { pts+=3; return; }
+      if (g1===r.g1 && g2===r.g2) { pts+=3; acertos3++; return; }
       const rp = g1>g2?1:g1<g2?-1:0;
       const rr = r.g1>r.g2?1:r.g1<r.g2?-1:0;
-      if (rp===rr) pts+=1;
+      if (rp===rr) { pts+=1; acertos1++; }
     });
-    return { nome: p.nome, wpp: p.whatsapp||'', pts, feitos, id: p.id };
-  }).sort((a,b) => b.pts - a.pts);
+    return { nome: p.nome, wpp: p.whatsapp||'', pts, feitos, acertos3, acertos1, id: p.id };
+  }).sort((a,b) => b.pts - a.pts || b.acertos3 - a.acertos3 || b.acertos1 - a.acertos1);
 
   ranking.forEach(p => {
     const el = document.getElementById('pts_'+p.id);
@@ -430,6 +436,8 @@ async function calcularRanking() {
       <td class="rank-pos">${medalhas[i]||((i+1)+'º')}</td>
       <td><div class="rank-nome">${p.nome}</div><div style="font-size:.75rem;color:var(--fraco)">${p.wpp}</div></td>
       <td class="rank-pts">${p.pts}</td>
+      <td class="rank-feitos">${p.acertos3||0} exatos</td>
+      <td class="rank-feitos">${p.acertos1||0} result.</td>
       <td class="rank-feitos">${p.feitos}/72</td>
       <td class="rank-feitos">${jogosComRes>0?(p.pts/(jogosComRes*3)*100).toFixed(1)+'%':'-'}</td>
     </tr>`).join('');
@@ -440,6 +448,8 @@ async function calcularRanking() {
       <thead><tr>
         <th>Pos.</th><th>Participante</th>
         <th style="text-align:center">Pontos</th>
+        <th style="text-align:center">Placares Exatos</th>
+        <th style="text-align:center">Resultados</th>
         <th style="text-align:center">Palpites</th>
         <th style="text-align:center">Aproveit.</th>
       </tr></thead>
@@ -450,6 +460,149 @@ async function calcularRanking() {
       <span>R$ ${arrecadado}</span>
     </div>`;
   btn.textContent = '⚽ Calcular Pontos'; btn.disabled = false;
+}
+
+
+// ── BUSCAR RESULTADOS VIA API FOOTBALL ───────────────────────
+const API_FOOTBALL_KEY = '928d2a7c01ba49c4e94519284b86daa0';
+const WC_LEAGUE = 1;
+const WC_SEASON = 2026;
+
+// Mapa: [time1, time2] → jogo_num (para matching)
+const JOGOS_MAP = {};
+JOGOS.forEach(([num,data,hora,t1,t2,grupo]) => {
+  const key = `${t1.toLowerCase()}|${t2.toLowerCase()}`;
+  JOGOS_MAP[key] = num;
+});
+
+// Normaliza nomes para comparação com a API
+function normalizarTime(nome) {
+  const mapa = {
+    'méxico': 'mexico', 'brasil': 'brazil', 'alemanha': 'germany',
+    'holanda': 'netherlands', 'espanha': 'spain', 'frança': 'france',
+    'bélgica': 'belgium', 'inglaterra': 'england', 'portugal': 'portugal',
+    'argentina': 'argentina', 'coreia do sul': 'south korea',
+    'arábia saudita': 'saudi arabia', 'nova zelândia': 'new zealand',
+    'costa do marfim': 'ivory coast', 'áfrica do sul': 'south africa',
+    'rep. checa': 'czech republic', 'bósnia e herz.': 'bosnia',
+    'rep. d. congo': 'dr congo', 'uzbequistão': 'uzbekistan',
+    'irã': 'iran', 'austrália': 'australia', 'áustria': 'austria',
+    'argélia': 'algeria', 'jordânia': 'jordan', 'japão': 'japan',
+    'colômbia': 'colombia', 'equador': 'ecuador', 'noruega': 'norway',
+    'curaçao': 'curacao', 'tunísia': 'tunisia', 'croácia': 'croatia',
+    'gana': 'ghana', 'panamá': 'panama', 'uruguai': 'uruguay',
+    'egito': 'egypt', 'senegal': 'senegal', 'suíça': 'switzerland',
+    'suécia': 'sweden', 'escócia': 'scotland', 'haiti': 'haiti',
+    'catar': 'qatar', 'canadá': 'canada', 'iraque': 'iraq',
+    'marrocos': 'morocco', 'cabo verde': 'cape verde',
+    'paraguai': 'paraguay', 'turquia': 'turkey',
+  };
+  const n = nome.toLowerCase();
+  return mapa[n] || n;
+}
+
+async function buscarResultadosAPI() {
+  const btn = document.querySelector('.btn-buscar-api');
+  const status = document.getElementById('apiStatus');
+  btn.disabled = true;
+  btn.textContent = '⏳ Buscando...';
+  status.textContent = '';
+
+  try {
+    // Busca jogos finalizados da Copa 2026
+    const url = `https://v3.football.api-sports.io/fixtures?league=${WC_LEAGUE}&season=${WC_SEASON}&status=FT`;
+    const resp = await fetch(url, {
+      headers: {
+        'x-apisports-key': API_FOOTBALL_KEY,
+      }
+    });
+
+    if (!resp.ok) {
+      throw new Error(`API retornou ${resp.status}. Verifique se a chave está ativa.`);
+    }
+
+    const data = await resp.json();
+    const fixtures = data.response || [];
+
+    if (fixtures.length === 0) {
+      status.textContent = '⚠️ Nenhum jogo finalizado encontrado na API ainda.';
+      btn.disabled = false;
+      btn.textContent = '🔄 Buscar Resultados Automáticos';
+      return;
+    }
+
+    let encontrados = 0;
+    let lote = [];
+
+    fixtures.forEach(f => {
+      const homeAPI = f.teams?.home?.name?.toLowerCase() || '';
+      const awayAPI = f.teams?.away?.name?.toLowerCase() || '';
+      const goalsHome = f.goals?.home;
+      const goalsAway = f.goals?.away;
+
+      if (goalsHome === null || goalsAway === null) return;
+
+      // Tenta fazer match com nossos jogos
+      let jogoNum = null;
+
+      // Busca direto
+      for (const [num,data,hora,t1,t2,grupo] of JOGOS) {
+        const n1 = normalizarTime(t1);
+        const n2 = normalizarTime(t2);
+        if (
+          (homeAPI.includes(n1) || n1.includes(homeAPI)) &&
+          (awayAPI.includes(n2) || n2.includes(awayAPI))
+        ) {
+          jogoNum = num;
+          break;
+        }
+        // invertido
+        if (
+          (homeAPI.includes(n2) || n2.includes(homeAPI)) &&
+          (awayAPI.includes(n1) || n1.includes(awayAPI))
+        ) {
+          jogoNum = num;
+          break;
+        }
+      }
+
+      if (jogoNum) {
+        lote.push({ jogo_num: jogoNum, gol1: goalsHome, gol2: goalsAway });
+        encontrados++;
+      }
+    });
+
+    if (lote.length === 0) {
+      status.textContent = `⚠️ ${fixtures.length} jogos encontrados na API mas nenhum correspondeu. Os jogos podem ainda não ter começado.`;
+      btn.disabled = false;
+      btn.textContent = '🔄 Buscar Resultados Automáticos';
+      return;
+    }
+
+    // Salva no Supabase
+    const r = await sbUpsert('resultados', lote);
+    if (r.ok || r.status === 201) {
+      // Atualiza tela
+      lote.forEach(l => {
+        resultadosSalvos[l.jogo_num] = { g1: l.gol1, g2: l.gol2 };
+        const i1 = document.getElementById(`r${l.jogo_num}_g1`);
+        const i2 = document.getElementById(`r${l.jogo_num}_g2`);
+        if (i1) { i1.value = l.gol1; i1.classList.add('salvo'); }
+        if (i2) { i2.value = l.gol2; i2.classList.add('salvo'); }
+      });
+      status.textContent = `✅ ${encontrados} resultado(s) importados automaticamente!`;
+      status.style.color = '#4caf50';
+    } else {
+      throw new Error('Erro ao salvar no banco: ' + await r.text());
+    }
+
+  } catch(e) {
+    status.textContent = `❌ ${e.message}`;
+    status.style.color = '#ef5350';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🔄 Buscar Resultados Automáticos';
 }
 
 // ── LIMPAR RESULTADO INDIVIDUAL ───────────────────────────────
