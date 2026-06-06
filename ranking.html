@@ -226,15 +226,26 @@ function initiais(nome) {
   return nome.trim().split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
 }
 
+const SOFASCORE_IDS = {};
+[{"nome":"Alisson","num":1,"id":163205},{"nome":"Weverton","num":12,"id":156987},{"nome":"Ederson","num":23,"id":225014},{"nome":"Wesley","num":2,"id":1108836},{"nome":"Gabriel Magalhães","num":3,"id":826225},{"nome":"Marquinhos","num":4,"id":108664},{"nome":"Alex Sandro","num":6,"id":94033},{"nome":"Danilo","num":13,"id":102819},{"nome":"Bremer","num":14,"id":825406},{"nome":"Léo Pereira","num":15,"id":791718},{"nome":"Douglas Santos","num":16,"id":263824},{"nome":"Ibañez","num":24,"id":826040},{"nome":"Casemiro","num":5,"id":41238},{"nome":"Bruno Guimarães","num":8,"id":831765},{"nome":"Fabinho","num":17,"id":131920},{"nome":"Danilo Santos","num":18,"id":975118},{"nome":"Lucas Paquetá","num":20,"id":700635},{"nome":"Vinicius Jr.","num":7,"id":868812},{"nome":"Matheus Cunha","num":9,"id":838498},{"nome":"Neymar","num":10,"id":25366},{"nome":"Raphinha","num":11,"id":741751},{"nome":"Endrick","num":19,"id":1106753},{"nome":"Luiz Henrique","num":21,"id":987357},{"nome":"Gabriel Martinelli","num":22,"id":842399},{"nome":"Igor Thiago","num":25,"id":1043952},{"nome":"Rayan","num":26,"id":1195694}].forEach(j => { SOFASCORE_IDS[j.num] = j.id; });
+
 function renderAvatar(p, corClass) {
   if (p.palpites && p.palpites.avatar_num) {
-    return `<div class="r-av" style="background:${corClass};font-size:13px;font-weight:900;color:#ffdf00">#${p.palpites.avatar_num}</div>`;
+    const sid = SOFASCORE_IDS[p.palpites.avatar_num];
+    if (sid) {
+      return `<div class="r-av" style="background:${corClass};overflow:hidden;padding:0"><img src="https://img.sofascore.com/api/v1/player/${sid}/image" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.innerHTML='#${p.palpites.avatar_num}'"></div>`;
+    }
+    return `<div class="r-av" style="background:${corClass};font-size:11px;font-weight:900;color:#ffdf00">#${p.palpites.avatar_num}</div>`;
   }
   return `<div class="r-av" style="background:${corClass}">${initiais(p.nome)}</div>`;
 }
 
 function renderAvatarPodio(p, corStyle) {
   if (p.palpites && p.palpites.avatar_num) {
+    const sid = SOFASCORE_IDS[p.palpites.avatar_num];
+    if (sid) {
+      return `<div class="avatar" style="${corStyle};overflow:hidden;padding:0"><img src="https://img.sofascore.com/api/v1/player/${sid}/image" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.innerHTML='#${p.palpites.avatar_num}'"></div>`;
+    }
     return `<div class="avatar" style="${corStyle};font-size:13px;font-weight:900;color:#ffdf00">#${p.palpites.avatar_num}</div>`;
   }
   return `<div class="avatar" style="${corStyle}">${initiais(p.nome)}</div>`;
