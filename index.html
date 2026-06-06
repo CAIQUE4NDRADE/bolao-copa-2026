@@ -472,9 +472,11 @@
   .av-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
   .av-card:hover{border-color:rgba(255,223,0,0.4);background:rgba(255,223,0,0.08)}
   .av-card.selected{border-color:#ffdf00;background:rgba(255,223,0,0.12)}
-  .av-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#ffdf00;line-height:1}
-  .av-nome{font-size:0.7rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;color:#e8e8e8;margin-top:3px;line-height:1.2}
-  .av-pos{font-size:0.6rem;color:#9aa0b4;margin-top:1px}
+  .av-img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid rgba(255,255,255,0.1);background:#0a2a50}
+  .av-num{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:#ffdf00;line-height:1;margin-top:4px}
+  .av-nome{font-size:0.68rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;color:#e8e8e8;margin-top:2px;line-height:1.2}
+  .av-pos{font-size:0.58rem;color:#9aa0b4;margin-top:1px}
+  .av-card.selected .av-img{border-color:#ffdf00}
   .btn-confirmar-av{width:100%;padding:14px;background:linear-gradient(135deg,#009c3b,#007a2f);color:#fff;border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;cursor:pointer;margin-top:14px;transition:all .2s}
   .btn-confirmar-av:hover{transform:translateY(-1px)}
   .btn-pular-av{width:100%;padding:10px;background:transparent;color:#9aa0b4;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;letter-spacing:1px;cursor:pointer;margin-top:8px}
@@ -1269,7 +1271,7 @@
   }
 
 
-  const JOGADORES_BR = [{"nome": "Alisson", "pos": "Goleiro", "num": 1, "emoji": "🧤"}, {"nome": "Weverton", "pos": "Goleiro", "num": 12, "emoji": "🧤"}, {"nome": "Ederson", "pos": "Goleiro", "num": 23, "emoji": "🧤"}, {"nome": "Wesley", "pos": "Defensor", "num": 2, "emoji": "🛡️"}, {"nome": "Gabriel Magalhães", "pos": "Defensor", "num": 3, "emoji": "🛡️"}, {"nome": "Marquinhos", "pos": "Defensor", "num": 4, "emoji": "🛡️"}, {"nome": "Alex Sandro", "pos": "Defensor", "num": 6, "emoji": "🛡️"}, {"nome": "Danilo", "pos": "Defensor", "num": 13, "emoji": "🛡️"}, {"nome": "Bremer", "pos": "Defensor", "num": 14, "emoji": "🛡️"}, {"nome": "Léo Pereira", "pos": "Defensor", "num": 15, "emoji": "🛡️"}, {"nome": "Douglas Santos", "pos": "Defensor", "num": 16, "emoji": "🛡️"}, {"nome": "Ibañez", "pos": "Defensor", "num": 24, "emoji": "🛡️"}, {"nome": "Casemiro", "pos": "Meio", "num": 5, "emoji": "⚙️"}, {"nome": "Bruno Guimarães", "pos": "Meio", "num": 8, "emoji": "⚙️"}, {"nome": "Fabinho", "pos": "Meio", "num": 17, "emoji": "⚙️"}, {"nome": "Danilo Santos", "pos": "Meio", "num": 18, "emoji": "⚙️"}, {"nome": "Lucas Paquetá", "pos": "Meio", "num": 20, "emoji": "⚙️"}, {"nome": "Vinicius Jr.", "pos": "Atacante", "num": 7, "emoji": "⚽"}, {"nome": "Matheus Cunha", "pos": "Atacante", "num": 9, "emoji": "⚽"}, {"nome": "Neymar", "pos": "Atacante", "num": 10, "emoji": "⚽"}, {"nome": "Raphinha", "pos": "Atacante", "num": 11, "emoji": "⚽"}, {"nome": "Endrick", "pos": "Atacante", "num": 19, "emoji": "⚽"}, {"nome": "Luiz Henrique", "pos": "Atacante", "num": 21, "emoji": "⚽"}, {"nome": "Gabriel Martinelli", "pos": "Atacante", "num": 22, "emoji": "⚽"}, {"nome": "Igor Thiago", "pos": "Atacante", "num": 25, "emoji": "⚽"}, {"nome": "Rayan", "pos": "Atacante", "num": 26, "emoji": "⚽"}];
+  const JOGADORES_BR = [{"nome": "Alisson", "pos": "Goleiro", "num": 1, "id": 163205}, {"nome": "Weverton", "pos": "Goleiro", "num": 12, "id": 156987}, {"nome": "Ederson", "pos": "Goleiro", "num": 23, "id": 225014}, {"nome": "Wesley", "pos": "Defensor", "num": 2, "id": 1108836}, {"nome": "Gabriel Magalhães", "pos": "Defensor", "num": 3, "id": 826225}, {"nome": "Marquinhos", "pos": "Defensor", "num": 4, "id": 108664}, {"nome": "Alex Sandro", "pos": "Defensor", "num": 6, "id": 94033}, {"nome": "Danilo", "pos": "Defensor", "num": 13, "id": 102819}, {"nome": "Bremer", "pos": "Defensor", "num": 14, "id": 825406}, {"nome": "Léo Pereira", "pos": "Defensor", "num": 15, "id": 791718}, {"nome": "Douglas Santos", "pos": "Defensor", "num": 16, "id": 263824}, {"nome": "Ibañez", "pos": "Defensor", "num": 24, "id": 826040}, {"nome": "Casemiro", "pos": "Meio", "num": 5, "id": 41238}, {"nome": "Bruno Guimarães", "pos": "Meio", "num": 8, "id": 831765}, {"nome": "Fabinho", "pos": "Meio", "num": 17, "id": 131920}, {"nome": "Danilo Santos", "pos": "Meio", "num": 18, "id": 975118}, {"nome": "Lucas Paquetá", "pos": "Meio", "num": 20, "id": 700635}, {"nome": "Vinicius Jr.", "pos": "Atacante", "num": 7, "id": 868812}, {"nome": "Matheus Cunha", "pos": "Atacante", "num": 9, "id": 838498}, {"nome": "Neymar", "pos": "Atacante", "num": 10, "id": 25366}, {"nome": "Raphinha", "pos": "Atacante", "num": 11, "id": 741751}, {"nome": "Endrick", "pos": "Atacante", "num": 19, "id": 1106753}, {"nome": "Luiz Henrique", "pos": "Atacante", "num": 21, "id": 987357}, {"nome": "Gabriel Martinelli", "pos": "Atacante", "num": 22, "id": 842399}, {"nome": "Igor Thiago", "pos": "Atacante", "num": 25, "id": 1043952}, {"nome": "Rayan", "pos": "Atacante", "num": 26, "id": 1195694}];
   let avatarSelecionado = null;
   let dadosPendentes = null;
 
@@ -1285,8 +1287,12 @@
     for (const [titulo, jogadores] of Object.entries(grupos)) {
       html += `<div class="av-section">${titulo}</div><div class="av-grid">`;
       jogadores.forEach(j => {
+        const imgUrl = `https://img.sofascore.com/api/v1/player/${j.id}/image`;
         html += `<div class="av-card" onclick="selecionarAvatar(${j.num}, '${j.nome}', this)" data-num="${j.num}">
-          <div class="av-num">${j.num}</div>
+          <img class="av-img" src="${imgUrl}" alt="${j.nome}"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="av-img" style="display:none;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#ffdf00;background:#0a2a50">${j.num}</div>
+          <div class="av-num">#${j.num}</div>
           <div class="av-nome">${j.nome}</div>
           <div class="av-pos">${j.pos}</div>
         </div>`;
